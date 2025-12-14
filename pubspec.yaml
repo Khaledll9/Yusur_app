@@ -80,6 +80,13 @@ flutter:
           weight: 600
         - asset: assets/fonts/LamaSans-Bold.otf
           weight: 700
+    - family: 'LamaSansExpanded'
+      fonts:
+        - asset: assets/fonts/LamaSans-MediumExpanded.otf
+          weight: 500
+        - asset: assets/fonts/LamaSans-SemiBoldExpanded.otf
+          weight: 600
+        
           
       
   #

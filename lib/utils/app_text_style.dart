@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 
 abstract class TextStyles {
   static const TextStyle semiBold24Expanded = TextStyle(
-    fontFamily: 'LamaSansExpanded',
     fontWeight: FontWeight.w600,
     fontSize: 24,
     color: Colors.white,
+    fontFamily: 'LamaSansExpanded',
   );
 
   static const TextStyle semiBold18Expanded = TextStyle(
-    fontFamily: 'LamaSansExpanded',
     fontWeight: FontWeight.w600,
     fontSize: 18,
     color: Colors.white,
+    fontFamily: 'LamaSansExpanded',
   );
 
   static const TextStyle medium16Expanded = TextStyle(
-    fontFamily: 'LamaSansExpanded',
     fontWeight: FontWeight.w500,
     fontSize: 16,
     color: Colors.white,
+    fontFamily: 'LamaSansExpanded',
   );
 
   static const TextStyle bold18 = TextStyle(
