@@ -20,20 +20,17 @@ class CustomwidgetForInstituteinformatioin extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              IconButton(
-                padding: EdgeInsets.zero,
-                icon: Icon(
-                  institute.isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: institute.isFavorite ? Colors.red : Colors.grey,
-                  size: 25,
-                ),
-                onPressed: () {},
+               CircleAvatar(
+                radius:35.0,
+                backgroundColor: Colors.grey.shade200,
+                backgroundImage: AssetImage(institute.photoPath!),
               ),
+             
               const SizedBox(width: 8),
 
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       institute.nameAr,
@@ -54,10 +51,14 @@ class CustomwidgetForInstituteinformatioin extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 15),
-              CircleAvatar(
-                radius: 50.0,
-                backgroundColor: Colors.grey.shade200,
-                backgroundImage: AssetImage(institute.photoPath!),
+              IconButton(
+                padding: EdgeInsets.zero,
+                icon: Icon(
+                  institute.isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: institute.isFavorite ? Colors.red : Colors.grey,
+                  size: 25,
+                ),
+                onPressed: () {},
               ),
             ],
           ),

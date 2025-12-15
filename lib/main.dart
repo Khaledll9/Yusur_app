@@ -21,11 +21,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int index = 2;
+  int index = 0;
   final screens = [
-    const ProfileScreen(),
-    const Favoritesscreen(),
     homeScreen(),
+    const Favoritesscreen(),
+
+    const ProfileScreen(),
   ];
 
   final items = <Widget>[MyAppIcons.home, MyAppIcons.favorite, MyAppIcons.user];
