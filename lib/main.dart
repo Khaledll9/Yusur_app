@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:yusur_app/generated/l10n.dart';
+import 'package:yusur_app/views/starting_views/widgets/customAppBar_For_StartingView.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale('ar'),
 
     home:const Scaffold(
+      appBar: CustomappbarForStartingview(),
 
     ),
     );
