@@ -4,6 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:yusur_app/generated/l10n.dart';
 import 'package:yusur_app/utils/app_color.dart';
 import 'package:yusur_app/utils/app_icons.dart';
+import 'package:yusur_app/views/starting_views/ProfileScreen.dart';
+import 'package:yusur_app/views/starting_views/favoriteScreen.dart';
+import 'package:yusur_app/views/starting_views/homeScreen.dart';
 import 'package:yusur_app/views/starting_views/widgets/customAppBar_For_StartingView.dart';
 
 void main() {
@@ -19,6 +22,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int index = 2;
+  final screens = [
+    const ProfileScreen(),
+    const Favoritesscreen(),
+    homeScreen(),
+  ];
 
   final items = <Widget>[MyAppIcons.home, MyAppIcons.favorite, MyAppIcons.user];
 
@@ -39,6 +47,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         backgroundColor: AppColors.backgroundColor,
         appBar: const CustomappbarForStartingview(),
+        body: screens[index],
 
         bottomNavigationBar: CurvedNavigationBar(
           items: items,

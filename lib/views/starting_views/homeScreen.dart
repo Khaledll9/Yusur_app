@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yusur_app/models/institute_model.dart';
+import 'package:yusur_app/utils/app_images.dart';
 import 'package:yusur_app/views/starting_views/widgets/customWidget_For_InstituteInformatioin.dart';
 
 
@@ -11,60 +12,79 @@ final List<Institute> institutes = [
       nameAr: 'معهد باينيرز',
       address: 'تعز - العقبة - مقابل تعز مول',
       isFavorite: false, 
+      photoPath:AppImages.assetsImagesBackground1,
     ),
      const Institute(
       id: '2',
       nameAr: 'معهد اكاديمية الإعلام العربي ',
       address: 'تعز - العواضي  - مقابل القرصان ',
       isFavorite: false, 
+            photoPath:AppImages.assetsImagesBackground1,
+
     ),
      const Institute(
       id: '3',
       nameAr: 'معهد For-You ]',
       address: 'تعز - العقبة - مقابل تعز مول',
       isFavorite: false, 
+            photoPath:AppImages.assetsImagesBackground1,
+
     ),
      const Institute(
       id: '4',
       nameAr: 'معهد مالي ',
       address: 'تعز - شارع جمال  - مقابل الجسر ',
       isFavorite: false, 
+            photoPath:AppImages.assetsImagesBackground1,
+
     ),
      const Institute(
       id: '5',
       nameAr: 'معهد باينيرز',
       address: 'تعز - العقبة - مقابل تعز مول',
       isFavorite: false, 
+            photoPath:AppImages.assetsImagesBackground1,
+
     ),
      const Institute(
       id: '6',
       nameAr: 'معهد باينيرز',
       address: 'تعز - العقبة - مقابل تعز مول',
       isFavorite: false, 
+            photoPath:AppImages.assetsImagesBackground1,
+
     ),
      const Institute(
       id: '7',
       nameAr: 'معهد باينيرز',
       address: 'تعز - العقبة - مقابل تعز مول',
-      isFavorite: false, 
+      isFavorite: false,
+            photoPath:AppImages.assetsImagesBackground1,
+
     ),
      const Institute(
       id: '8',
       nameAr: 'معهد باينيرز',
       address: 'تعز - العقبة - مقابل تعز مول',
       isFavorite: false, 
+            photoPath:AppImages.assetsImagesBackground1,
+
     ),
      const Institute(
       id: '9',
       nameAr: 'معهد باينيرز',
       address: 'تعز - العقبة - مقابل تعز مول',
       isFavorite: false, 
+            photoPath:AppImages.assetsImagesBackground1,
+
     ),
      const Institute(
       id: '10',
       nameAr: 'معهد باينيرز',
       address: 'تعز - العقبة - مقابل تعز مول',
       isFavorite: false, 
+            photoPath:AppImages.assetsImagesBackground1,
+
     ),
     
   ];
