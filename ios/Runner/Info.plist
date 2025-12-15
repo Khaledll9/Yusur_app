@@ -45,5 +45,8 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- إذن الوصول إلى معرض الصور  -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>نحتاج الوصول إلى معرض الصور لاختيار صورة للملف الشخصي</string>
 </dict>
 </plist>

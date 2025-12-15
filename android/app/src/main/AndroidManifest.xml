@@ -1,4 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- أذونات للوصول للصور في إصدارات أندرويد القديمة (ما قبل أندرويد 10) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:label="تطبيق يسر"
         android:name="${applicationName}"
