@@ -205,7 +205,7 @@ class AddEntryForm extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Container(color: AppColors.backgroundColor), // خلفية داكنة
-          const Center(child: MyAppIcons.addCourse),
+          const Center(child: MyAppIcons.addImage),
           const Positioned(
             bottom: 10,
             right: 10,

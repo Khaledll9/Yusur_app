@@ -61,7 +61,7 @@ class MyAppIcons {
   );
   static const Widget addCourse = HugeIcon(
     icon: HugeIcons.strokeRoundedDashboardSquareAdd,
-    color: AppColors.textColor,
+    color: AppColors.black80,
   );
   static const Widget addDiploma = HugeIcon(
     icon: HugeIcons.strokeRoundedDashboardCircleAdd,
