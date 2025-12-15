@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yusur_app/utils/app_color.dart';
 import 'package:yusur_app/utils/app_icons.dart';
 import 'package:yusur_app/utils/app_text_styles.dart';
 
@@ -9,15 +10,13 @@ class CustomappbarForStartingview extends StatelessWidget implements PreferredSi
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: const Color.fromARGB(255, 226, 225, 223),
+      backgroundColor:AppColors.backgroundColor,
       toolbarHeight: 80,
       elevation: 0,
-      leading: Container(
-        child: IconButton(
-          icon: MyAppIcons.menu,
-          onPressed: () {
-          },
-        ),
+      leading: IconButton(
+        icon: MyAppIcons.menu,
+        onPressed: () {
+        },
       ),
       title: Container(
         margin: const EdgeInsets.only(left: 15, ),
@@ -30,13 +29,11 @@ class CustomappbarForStartingview extends StatelessWidget implements PreferredSi
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-       Container(
-        child: IconButton(
+        IconButton(
           icon: MyAppIcons.search,
           onPressed: () {
           },
         ),
-      ),
             const Expanded(
               child: TextField(
                 decoration: InputDecoration(
