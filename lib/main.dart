@@ -9,6 +9,11 @@ import 'package:yusur_app/views/starting_views/favoriteScreen.dart';
 import 'package:yusur_app/views/starting_views/homeScreen.dart';
 import 'package:yusur_app/views/starting_views/widgets/customAppBar_For_StartingView.dart';
 
+import 'package:yusur_app/views/starting_views/add_course_screen.dart';
+import 'package:yusur_app/views/starting_views/add_diploma_screen.dart';
+import 'package:yusur_app/views/starting_views/edit_course_screen.dart';
+import 'package:yusur_app/views/starting_views/edit_diploma_screen.dart';
+
 void main() {
   runApp(MyApp());
 }
