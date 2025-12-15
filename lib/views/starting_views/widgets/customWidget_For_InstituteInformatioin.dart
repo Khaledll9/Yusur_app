@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:yusur_app/models/institute_model.dart';
-import 'package:yusur_app/utils/app_icons.dart';
 
 class CustomwidgetForInstituteinformatioin extends StatelessWidget {
   const  CustomwidgetForInstituteinformatioin({super.key, required this.institute});
