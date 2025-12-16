@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:yusur_app/models/institute_model.dart';
 import 'package:yusur_app/utils/app_images.dart';
-import 'package:yusur_app/views/starting_views/widgets/custom_widget_for_institute_informatioin.dart';
 
-class InstitutesInforamationView extends StatelessWidget {
-  InstitutesInforamationView({super.key});
+import 'Institute_item.dart';
+
+class InstituteItemListView extends StatelessWidget {
   final List<Institute> institutes = [
     const Institute(
       id: '1',
@@ -77,15 +77,14 @@ class InstitutesInforamationView extends StatelessWidget {
       photoPath: AppImages.assetsImagesBackground1,
     ),
   ];
+  InstituteItemListView({super.key});
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: institutes.length,
       itemBuilder: (context, index) {
         // Pass the callback function to the InstituteCard
-        return CustomWidgetForInstituteInformatioin(
-          institute: institutes[index],
-        );
+        return InstituteItem(institute: institutes[index]);
       },
     );
   }

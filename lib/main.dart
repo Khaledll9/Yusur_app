@@ -6,32 +6,29 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:yusur_app/generated/l10n.dart';
 import 'package:yusur_app/utils/app_color.dart';
 import 'package:yusur_app/utils/app_icons.dart';
+import 'package:yusur_app/views/add_and_edit/add_course_view.dart';
+import 'package:yusur_app/views/add_and_edit/add_diploma_view.dart';
+import 'package:yusur_app/views/add_and_edit/edit_diploma_view.dart';
+import 'package:yusur_app/views/starting_views/add_and_edit/edit_course_view.dart';
+import 'package:yusur_app/views/starting_views/favorite_view.dart';
 import 'package:yusur_app/views/starting_views/home_view.dart';
 import 'package:yusur_app/views/starting_views/profile_view.dart';
-import 'package:yusur_app/views/starting_views/favorite_view.dart';
-import 'package:yusur_app/views/starting_views/widgets/custom_app_bar_for_starting_view.dart';
-
-import 'package:yusur_app/views/starting_views/add&edit_subjects/views/add_course_view.dart';
-import 'package:yusur_app/views/starting_views/add&edit_subjects/views/add_diploma_view.dart';
-import 'package:yusur_app/views/starting_views/add&edit_subjects/views/edit_course_view.dart';
-import 'package:yusur_app/views/starting_views/add&edit_subjects/views/edit_diploma_view.dart';
+import 'package:yusur_app/views/starting_views/widgets/main_search_app_bar.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const YusurApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class YusurApp extends StatelessWidget {
+  const YusurApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'LamaSans'),
+      theme: ThemeData(
+        fontFamily: 'LamaSans',
+        scaffoldBackgroundColor: AppColors.backgroundColor,
+      ),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         S.delegate,
@@ -42,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: S.delegate.supportedLocales,
       locale: const Locale('ar'),
 
-      home: const HomeView(),
+      home: const AddDiplomaView(),
     );
   }
 }

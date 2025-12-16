@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:yusur_app/models/diplomas_model.dart';
 
 import 'course_model.dart';
 import 'department_model.dart';
@@ -11,6 +12,7 @@ class Institutes extends Equatable {
   final Employee? employees;
   final Department? departments;
   final User? users;
+  final Diploma? diplomas;
 
   const Institutes({
     this.institutes,
@@ -18,6 +20,7 @@ class Institutes extends Equatable {
     this.employees,
     this.departments,
     this.users,
+    this.diplomas,
   });
 
   factory Institutes.fromJson(Map<String, dynamic> json) => Institutes(
@@ -36,6 +39,9 @@ class Institutes extends Equatable {
     users: json['users'] == null
         ? null
         : User.fromJson(json['users'] as Map<String, dynamic>),
+    diplomas: json['diplomas'] == null
+        ? null
+        : Diploma.fromJson(json['diplomas'] as Map<String, dynamic>),
   );
 
   Map<String, dynamic> toJson() => {
@@ -44,6 +50,7 @@ class Institutes extends Equatable {
     'employees': employees?.toJson(),
     'departments': departments?.toJson(),
     'users': users?.toJson(),
+    'diplomas': diplomas?.toJson(),
   };
 
   Institutes copyWith({
@@ -52,6 +59,7 @@ class Institutes extends Equatable {
     Employee? employees,
     Department? departments,
     User? users,
+    Diploma? diplomas,
   }) {
     return Institutes(
       institutes: institutes ?? this.institutes,
@@ -59,11 +67,12 @@ class Institutes extends Equatable {
       employees: employees ?? this.employees,
       departments: departments ?? this.departments,
       users: users ?? this.users,
+      diplomas: diplomas ?? this.diplomas,
     );
   }
 
   @override
   List<Object?> get props {
-    return [institutes, courses, employees, departments, users];
+    return [institutes, courses, employees, departments, users, diplomas];
   }
 }

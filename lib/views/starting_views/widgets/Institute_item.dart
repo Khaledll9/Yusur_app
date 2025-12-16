@@ -6,12 +6,9 @@ import 'package:yusur_app/utils/app_icons.dart';
 import 'package:yusur_app/utils/app_images.dart';
 import 'package:yusur_app/utils/app_text_styles.dart';
 
-class CustomWidgetForInstituteInformatioin extends StatelessWidget {
-  const CustomWidgetForInstituteInformatioin({
-    super.key,
-    required this.institute,
-  });
+class InstituteItem extends StatelessWidget {
   final Institute institute;
+  const InstituteItem({super.key, required this.institute});
 
   @override
   Widget build(BuildContext context) {

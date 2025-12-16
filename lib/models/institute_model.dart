@@ -25,7 +25,7 @@ class Institute extends Equatable {
     this.email,
     this.createdAt,
     this.updatedAt,
-   this.isFavorite=false,
+    this.isFavorite = false,
   });
 
   factory Institute.fromJson(Map<String, dynamic> json) => Institute(
@@ -39,22 +39,23 @@ class Institute extends Equatable {
     email: json['email'] as String?,
     createdAt: json['created_at'] as String?,
     updatedAt: json['updated_at'] as String?,
-    isFavorite: (json['isfavorite;'] as bool?)!,
   );
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'name_ar': nameAr,
-    'name_en': nameEn,
-    'description': description,
-    'address': address,
-    'photo_path': photoPath,
-    'phone': phone,
-    'email': email,
-    'created_at': createdAt,
-    'updated_at': updatedAt,
-    'isfavorite;': isFavorite,
-  };
+  @override
+  List<Object?> get props {
+    return [
+      id,
+      nameAr,
+      nameEn,
+      description,
+      address,
+      photoPath,
+      phone,
+      email,
+      createdAt,
+      updatedAt,
+    ];
+  }
 
   Institute copyWith({
     String? id,
@@ -82,19 +83,16 @@ class Institute extends Equatable {
     );
   }
 
-  @override
-  List<Object?> get props {
-    return [
-      id,
-      nameAr,
-      nameEn,
-      description,
-      address,
-      photoPath,
-      phone,
-      email,
-      createdAt,
-      updatedAt,
-    ];
-  }
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name_ar': nameAr,
+    'name_en': nameEn,
+    'description': description,
+    'address': address,
+    'photo_path': photoPath,
+    'phone': phone,
+    'email': email,
+    'created_at': createdAt,
+    'updated_at': updatedAt,
+  };
 }
