@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yusur_app/views/starting_views/widgets/coustom_add_entry_form.dart';
-import 'package:yusur_app/views/starting_views/widgets/coustom_app_bar_forAdding.dart';
+import 'package:yusur_app/views/starting_views/add&edit_subjects/coustom_widgets/coustom_add_entry_form.dart';
+import 'package:yusur_app/views/starting_views/add&edit_subjects/coustom_widgets/coustom_app_bar_forAdding.dart';
 import 'package:yusur_app/utils/app_color.dart';
 
 class EditCourseBody extends StatefulWidget {

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,10 +11,10 @@ import 'package:yusur_app/views/starting_views/favoriteScreen.dart';
 import 'package:yusur_app/views/starting_views/homeScreen.dart';
 import 'package:yusur_app/views/starting_views/widgets/customAppBar_For_StartingView.dart';
 
-import 'package:yusur_app/views/starting_views/add_course_screen.dart';
-import 'package:yusur_app/views/starting_views/add_diploma_screen.dart';
-import 'package:yusur_app/views/starting_views/edit_course_screen.dart';
-import 'package:yusur_app/views/starting_views/edit_diploma_screen.dart';
+import 'package:yusur_app/views/starting_views/add&edit_subjects/views/add_course_view.dart';
+import 'package:yusur_app/views/starting_views/add&edit_subjects/views/add_diploma_view.dart';
+import 'package:yusur_app/views/starting_views/add&edit_subjects/views/edit_course_view.dart';
+import 'package:yusur_app/views/starting_views/add&edit_subjects/views/edit_diploma_view.dart';
 
 void main() {
   runApp(MyApp());

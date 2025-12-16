@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:yusur_app/utils/app_color.dart';
 import 'package:yusur_app/utils/app_icons.dart';
