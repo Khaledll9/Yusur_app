@@ -1,15 +1,13 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 
-class Favoritesscreen extends StatelessWidget {
-  const Favoritesscreen({super.key});
+class ProfileView extends StatelessWidget {
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text(
-        'صفحة المفضلة',
+        'صفحة الحساب الشخصي',
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
       ),
     );

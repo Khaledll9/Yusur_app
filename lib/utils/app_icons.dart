@@ -27,6 +27,10 @@ class MyAppIcons {
     icon: HugeIcons.strokeRoundedFavourite,
     color: AppColors.black80,
   );
+  static const Widget favoriteLihgtBlue = HugeIcon(
+    icon: HugeIcons.strokeRoundedFavourite,
+    color: AppColors.lightPrimaryColor,
+  );
   static const Widget home = HugeIcon(
     icon: HugeIcons.strokeRoundedHome07,
     color: AppColors.lightPrimaryColor,

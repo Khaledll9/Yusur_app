@@ -6,10 +6,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:yusur_app/generated/l10n.dart';
 import 'package:yusur_app/utils/app_color.dart';
 import 'package:yusur_app/utils/app_icons.dart';
-import 'package:yusur_app/views/starting_views/ProfileScreen.dart';
-import 'package:yusur_app/views/starting_views/favoriteScreen.dart';
-import 'package:yusur_app/views/starting_views/homeScreen.dart';
-import 'package:yusur_app/views/starting_views/widgets/customAppBar_For_StartingView.dart';
+import 'package:yusur_app/views/starting_views/home_view.dart';
+import 'package:yusur_app/views/starting_views/profile_view.dart';
+import 'package:yusur_app/views/starting_views/favorite_view.dart';
+import 'package:yusur_app/views/starting_views/widgets/custom_app_bar_for_starting_view.dart';
 
 import 'package:yusur_app/views/starting_views/add&edit_subjects/views/add_course_view.dart';
 import 'package:yusur_app/views/starting_views/add&edit_subjects/views/add_diploma_view.dart';
@@ -17,27 +17,17 @@ import 'package:yusur_app/views/starting_views/add&edit_subjects/views/edit_cour
 import 'package:yusur_app/views/starting_views/add&edit_subjects/views/edit_diploma_view.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  int index = 0;
-  final screens = [
-    homeScreen(),
-    const Favoritesscreen(),
-
-    const ProfileScreen(),
-  ];
-
-  final items = <Widget>[MyAppIcons.home, MyAppIcons.favorite, MyAppIcons.user];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -52,23 +42,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: S.delegate.supportedLocales,
       locale: const Locale('ar'),
 
-      home: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        appBar: const CustomappbarForStartingview(),
-        body: screens[index],
-
-        bottomNavigationBar: CurvedNavigationBar(
-          items: items,
-          height: 50,
-          index: index,
-          backgroundColor: Colors.transparent,
-          onTap: (value) {
-            setState(() {
-              index = value;
-            });
-          },
-        ),
-      ),
+      home: const HomeView(),
     );
   }
 }
