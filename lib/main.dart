@@ -10,6 +10,7 @@ import 'package:yusur_app/views/add_and_edit/add_course_view.dart';
 import 'package:yusur_app/views/add_and_edit/add_diploma_view.dart';
 import 'package:yusur_app/views/add_and_edit/edit_course_view.dart';
 import 'package:yusur_app/views/add_and_edit/edit_diploma_view.dart';
+import 'package:yusur_app/views/starting_views/diploma_list_view.dart';
 import 'package:yusur_app/views/starting_views/favorite_view.dart';
 import 'package:yusur_app/views/starting_views/home_view.dart';
 import 'package:yusur_app/views/starting_views/profile_view.dart';
@@ -39,7 +40,7 @@ class YusurApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       locale: const Locale('ar'),
 
-      home: const EditDiplomaView(),
+      home: const DiplomaListView(),
     );
   }
 }

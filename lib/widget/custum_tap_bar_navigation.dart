@@ -45,7 +45,6 @@ class _CustumTapBarNavigationState extends State<CustumTapBarNavigation> {
       height: 45.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        reverse: true, // RTL
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];

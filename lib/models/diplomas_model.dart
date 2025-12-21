@@ -16,6 +16,7 @@ class Diploma extends Equatable {
   final String? updatedBy;
   final String? createdAt;
   final String? updatedAt;
+  final String? category;
 
   const Diploma({
     this.id,
@@ -33,6 +34,7 @@ class Diploma extends Equatable {
     this.updatedBy,
     this.createdAt,
     this.updatedAt,
+    this.category,
   });
 
   factory Diploma.fromJson(Map<String, dynamic> json) => Diploma(
@@ -104,6 +106,7 @@ class Diploma extends Equatable {
       updatedBy: updatedBy ?? this.updatedBy,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      category: category ?? category,
     );
   }
 
@@ -125,6 +128,7 @@ class Diploma extends Equatable {
       updatedBy,
       createdAt,
       updatedAt,
+      category,
     ];
   }
 }

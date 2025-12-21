@@ -55,22 +55,22 @@ class DiplomaItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      customIcon,
+                      Text(
+                        titleOfDiploma,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Spacer(),
+
                       const SizedBox(width: 4),
                       textOrIcon,
-                      const Spacer(),
+                      const SizedBox(height: 4),
+                      customIcon,
                     ],
                   ),
                   const SizedBox(height: 8),
-
-                  Text(
-                    titleOfDiploma,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
 
                   Text(
                     descriptionOfDiploma,
