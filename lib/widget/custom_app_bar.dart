@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({
-    super.key,
-    required this.customAction,
-    required this.customLeading,
-    required this.custumTitle,
-  });
-  final Widget customAction;
-  final Widget customLeading;
-  final Widget custumTitle;
+  const CustomAppBar({super.key, required this.action, required this.title});
+  final Widget action;
+  final Widget title;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: false,
+      // automaticallyImplyLeading: false,
       backgroundColor: const Color.fromARGB(255, 219, 219, 219),
-      title: custumTitle,
+      title: title,
       centerTitle: true,
       actions: [
         Container(
@@ -25,11 +19,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             borderRadius: BorderRadius.circular(10.0),
             color: Colors.white,
           ),
-          child: customAction,
+          child: action,
         ),
       ],
 
-      leading: customLeading,
+      leading: IconButton(
+        icon: const Icon(Icons.keyboard_arrow_left),
+        onPressed: () {},
+      ),
     );
   }
 

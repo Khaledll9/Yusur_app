@@ -94,15 +94,8 @@ class _DiplomaListViewState extends State<DiplomaListView> {
       backgroundColor: const Color.fromARGB(255, 219, 219, 219),
 
       appBar: CustomAppBar(
-        customAction: IconButton(
-          icon: const Icon(Icons.search),
-          onPressed: () {},
-        ),
-        customLeading: IconButton(
-          icon: const Icon(Icons.keyboard_arrow_left),
-          onPressed: () {},
-        ),
-        custumTitle: const Text(
+        action: IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+        title: const Text(
           'معهد اكاديمية الاعلام',
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
