@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yusur_app/utils/app_color.dart';
 import 'package:yusur_app/utils/app_icons.dart';
 
 import '../utils/app_text_styles.dart';
@@ -19,8 +20,8 @@ class BackNavigationAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      // automaticallyImplyLeading: false,
-      backgroundColor: const Color.fromARGB(255, 219, 219, 219),
+      elevation: 0,
+      backgroundColor: AppColors.backgroundColor,
       title: Text(title, style: TextStyles.medium16Black),
       centerTitle: true,
       actions: [action],

@@ -3,23 +3,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:yusur_app/models/diplomas_model.dart';
+import 'package:yusur_app/utils/app_text_styles.dart';
 
-class DiplomaItem extends StatelessWidget {
+class CourseItem extends StatelessWidget {
   final Diploma diploma;
   final Widget customIcon;
   final Widget textOrIcon;
-  final String titleOfDiploma;
-  final String descriptionOfDiploma;
-  final String imageUrl;
-  final Function()? onTap;
-  const DiplomaItem({
+  final Function() onTap;
+  const CourseItem({
     super.key,
     required this.diploma,
     required this.customIcon,
-    required this.textOrIcon,
-    required this.titleOfDiploma,
-    required this.descriptionOfDiploma,
-    required this.imageUrl,
+    this.textOrIcon = const SizedBox.shrink(),
     required this.onTap,
   });
 
@@ -28,10 +23,10 @@ class DiplomaItem extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return GestureDetector(
-      onTap: () => onTap,
+      onTap: onTap,
       child: Card(
         elevation: 2,
-        margin: const EdgeInsets.only(bottom: 16, left: 8, right: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +36,7 @@ class DiplomaItem extends StatelessWidget {
                 top: Radius.circular(10),
               ),
               child: Image.asset(
-                imageUrl,
+                diploma.photoPath!,
                 fit: BoxFit.cover,
                 width: screenWidth * 0.95,
                 height: screenWidth * 0.5,
@@ -51,30 +46,22 @@ class DiplomaItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      Text(
-                        titleOfDiploma,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      Text(diploma.titleAr, style: TextStyles.bold16Black),
                       const Spacer(),
 
-                      const SizedBox(width: 4),
                       textOrIcon,
-                      const SizedBox(height: 4),
+                      const SizedBox(width: 6),
                       customIcon,
                     ],
                   ),
                   const SizedBox(height: 8),
 
                   Text(
-                    descriptionOfDiploma,
-                    style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+                    diploma.descriptionAr!,
+                    style: TextStyles.bold14Gray,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

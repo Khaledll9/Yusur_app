@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:yusur_app/generated/l10n.dart';
 import 'package:yusur_app/utils/app_color.dart';
-import 'package:yusur_app/views/starting_views/diploma_list_view.dart';
+import 'package:yusur_app/views/starting_views/course_view/course_view.dart';
 
 import 'cubit_provider.dart';
 import 'locator.dart';
@@ -35,7 +35,7 @@ class YusurApp extends StatelessWidget {
         supportedLocales: S.delegate.supportedLocales,
         locale: const Locale('ar'),
 
-        home: const DiplomaListView(),
+        home: const CourseView(),
       ),
     );
   }
