@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../models/institute_model.dart';
+import '../../../models/institute_model.dart';
 
 class InstituteState extends Equatable {
   final List<Institute> institutes;

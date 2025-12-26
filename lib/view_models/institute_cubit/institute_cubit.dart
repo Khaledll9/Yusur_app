@@ -1,8 +1,8 @@
 // lib/features/institute/presentation/cubit/institute_cubit.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/institute_model.dart';
-import '../repositories/institute_repository/institute_repository.dart';
+import '../../../models/institute_model.dart';
+import '../../repositories/institute_repository/institute_repository.dart';
 import 'institute_state.dart';
 
 class InstituteCubit extends Cubit<InstituteState> {
