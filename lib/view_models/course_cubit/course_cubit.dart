@@ -1,7 +1,8 @@
+// lib/features/course/presentation/cubit/course_cubit.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/course_model.dart';
-import '../../repositories/course_repository/course_repository_impl.dart';
+import '../../repositories/course_repository/course_repository.dart';
 import 'course_state.dart';
 
 class CourseCubit extends Cubit<CourseState> {
@@ -14,15 +15,40 @@ class CourseCubit extends Cubit<CourseState> {
     _loadFromCache();
   }
 
+  // Helper getters
+  List<Course> get activeCourses => state.courses.where((c) {
+    return c.isActive == '1' || c.isActive == 'true';
+  }).toList();
+
+  bool get hasActiveCourses => activeCourses.isNotEmpty;
+
+  bool get hasOpenCourses => openCourses.isNotEmpty;
+
+  List<Course> get openCourses => state.courses.where((c) {
+    return c.isOpen == '1' || c.isOpen == 'true';
+  }).toList();
+
+  // Filter operations
   void applyFilters({String? departmentId, bool? isActive, bool? isOpen}) {
-    emit(
-      state.copyWith(
+    // If we have multiple filters, load from API
+    if ((departmentId != null && (isActive != null || isOpen != null)) ||
+        (isActive != null && isOpen != null)) {
+      loadCoursesWithFilters(
         departmentId: departmentId,
         isActive: isActive,
         isOpen: isOpen,
-        courses: _applyFilters(_allCourses),
-      ),
-    );
+      );
+    } else {
+      // Otherwise use local filtering
+      emit(
+        state.copyWith(
+          departmentId: departmentId,
+          isActive: isActive,
+          isOpen: isOpen,
+          courses: _applyFilters(_allCourses),
+        ),
+      );
+    }
   }
 
   void clearError() {
@@ -31,10 +57,26 @@ class CourseCubit extends Cubit<CourseState> {
     }
   }
 
+  void clearFilters() {
+    emit(
+      state.copyWith(
+        departmentId: null,
+        isActive: null,
+        isOpen: null,
+        courses: _allCourses,
+      ),
+    );
+  }
+
   void clearSearch() {
     emit(state.copyWith(courses: _allCourses, searchQuery: ''));
   }
 
+  void clearSelection() {
+    emit(state.copyWith(selectedCourse: null));
+  }
+
+  // CRUD operations
   Future<void> createCourse(Course course) async {
     try {
       emit(state.copyWith(isCreating: true, error: null));
@@ -67,8 +109,38 @@ class CourseCubit extends Cubit<CourseState> {
     }
   }
 
+  Future<void> getCourseByCode(String code) async {
+    try {
+      emit(state.copyWith(isLoading: true, error: null));
+
+      final course = await _repository.getCourseByCode(code);
+
+      if (course == null) {
+        throw Exception('Course not found with code: $code');
+      }
+
+      emit(state.copyWith(selectedCourse: course, isLoading: false));
+    } catch (e) {
+      emit(state.copyWith(error: e.toString(), isLoading: false));
+    }
+  }
+
+  Future<void> loadActiveCourses() async {
+    try {
+      emit(state.copyWith(isLoading: true, error: null));
+
+      final courses = await _repository.getActiveCourses();
+      _allCourses = courses;
+
+      emit(state.copyWith(courses: courses, isLoading: false, isActive: true));
+    } catch (e) {
+      emit(state.copyWith(error: e.toString(), isLoading: false));
+    }
+  }
+
   // ========== PUBLIC METHODS ==========
 
+  // Load operations
   Future<void> loadAllCourses() async {
     try {
       emit(state.copyWith(isLoading: true, error: null));
@@ -94,6 +166,36 @@ class CourseCubit extends Cubit<CourseState> {
     }
   }
 
+  Future<void> loadCoursesWithFilters({
+    String? departmentId,
+    bool? isActive,
+    bool? isOpen,
+  }) async {
+    try {
+      emit(state.copyWith(isLoading: true, error: null));
+
+      final courses = await _repository.getCoursesByMultipleFilters(
+        departmentId: departmentId,
+        isActive: isActive,
+        isOpen: isOpen,
+      );
+
+      _allCourses = courses;
+
+      emit(
+        state.copyWith(
+          courses: courses,
+          isLoading: false,
+          departmentId: departmentId,
+          isActive: isActive,
+          isOpen: isOpen,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(error: e.toString(), isLoading: false));
+    }
+  }
+
   Future<void> loadDepartmentCourses(String departmentId) async {
     try {
       emit(state.copyWith(isLoading: true, error: null));
@@ -112,6 +214,30 @@ class CourseCubit extends Cubit<CourseState> {
     }
   }
 
+  Future<void> loadOpenCourses() async {
+    try {
+      emit(state.copyWith(isLoading: true, error: null));
+
+      final courses = await _repository.getOpenCourses();
+      _allCourses = courses;
+
+      emit(state.copyWith(courses: courses, isLoading: false, isOpen: true));
+    } catch (e) {
+      emit(state.copyWith(error: e.toString(), isLoading: false));
+    }
+  }
+
+  // Utility methods
+  void refresh() async {
+    await loadAllCourses();
+  }
+
+  void reset() {
+    _allCourses.clear();
+    emit(CourseState.initial());
+  }
+
+  // Search operations
   Future<void> searchCourses(String query) async {
     if (query.isEmpty) {
       emit(state.copyWith(courses: _allCourses, searchQuery: ''));
@@ -128,6 +254,39 @@ class CourseCubit extends Cubit<CourseState> {
       );
     } catch (e) {
       emit(state.copyWith(error: e.toString(), isLoading: false));
+    }
+  }
+
+  Future<void> toggleCourseOpenStatus(String id, bool isOpen) async {
+    try {
+      final index = _allCourses.indexWhere((c) => c.id == id);
+      if (index == -1) return;
+
+      // Optimistic update
+      _allCourses[index] = _allCourses[index].copyWith(
+        isOpen: isOpen ? '1' : '0',
+      );
+      emit(state.copyWith(courses: _applyFilters(_allCourses)));
+
+      // API call
+      await _repository.toggleCourseOpenStatus(id, isOpen);
+
+      emit(state.copyWith(courses: _applyFilters(_allCourses)));
+    } catch (e) {
+      // Revert on error
+      final index = _allCourses.indexWhere((c) => c.id == id);
+      if (index != -1) {
+        _allCourses[index] = _allCourses[index].copyWith(
+          isOpen: !isOpen ? '1' : '0',
+        );
+      }
+      emit(
+        state.copyWith(
+          error: e.toString(),
+          courses: _applyFilters(_allCourses),
+        ),
+      );
+      rethrow;
     }
   }
 
@@ -155,6 +314,7 @@ class CourseCubit extends Cubit<CourseState> {
     }
   }
 
+  // Status operations
   Future<void> updateCourseStatus(String id, bool isActive) async {
     try {
       await _repository.updateCourseStatus(id, isActive);

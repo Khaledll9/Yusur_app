@@ -104,6 +104,60 @@ class CourseServiceImpl implements CourseService {
   }
 
   @override
+  Future<List<Course>> getCoursesByStatus({
+    bool? isActive,
+    bool? isOpen,
+    String? departmentId,
+  }) async {
+    try {
+      final Map<String, dynamic> queryParams = {};
+
+      if (isActive != null) {
+        queryParams['is_active'] = isActive ? '1' : '0';
+      }
+
+      if (isOpen != null) {
+        queryParams['is_open'] = isOpen ? '1' : '0';
+      }
+
+      if (departmentId != null) {
+        queryParams['department_id'] = departmentId;
+      }
+
+      final response = await _dioClient.get(
+        _endpoint,
+        queryParameters: queryParams,
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['data'] ?? response.data;
+        return data.map((json) => Course.fromJson(json)).toList();
+      }
+      throw Exception('Failed to load filtered courses');
+    } on DioException catch (e) {
+      throw dioErrorHandler(e);
+    }
+  }
+
+  @override
+  Future<List<Course>> getOpenCourses() async {
+    try {
+      final response = await _dioClient.get(
+        _endpoint,
+        queryParameters: {'is_open': '1'},
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['data'] ?? response.data;
+        return data.map((json) => Course.fromJson(json)).toList();
+      }
+      throw Exception('Failed to load open courses');
+    } on DioException catch (e) {
+      throw dioErrorHandler(e);
+    }
+  }
+
+  @override
   Future<List<Course>> searchCourses(String query) async {
     try {
       final response = await _dioClient.get(
@@ -116,6 +170,18 @@ class CourseServiceImpl implements CourseService {
         return data.map((json) => Course.fromJson(json)).toList();
       }
       throw Exception('Failed to search courses');
+    } on DioException catch (e) {
+      throw dioErrorHandler(e);
+    }
+  }
+
+  @override
+  Future<void> toggleCourseOpenStatus(String id, bool isOpen) async {
+    try {
+      await _dioClient.patch(
+        '$_endpoint/$id/open-status',
+        data: {'is_open': isOpen},
+      );
     } on DioException catch (e) {
       throw dioErrorHandler(e);
     }
