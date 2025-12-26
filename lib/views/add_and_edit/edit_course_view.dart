@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../widget/back_navigation_app.dart';
 import 'widgets/add_data_body.dart';
-import 'widgets/back_navigation_app_bar.dart';
 
 class EditCourseView extends StatelessWidget {
   const EditCourseView({super.key});

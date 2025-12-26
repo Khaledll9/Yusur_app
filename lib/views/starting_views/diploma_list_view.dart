@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:yusur_app/models/diplomas_model.dart';
+import 'package:yusur_app/utils/app_color.dart';
+import 'package:yusur_app/utils/app_icons.dart';
 import 'package:yusur_app/utils/app_images.dart';
-import 'package:yusur_app/widget/custom_app_bar.dart';
+import 'package:yusur_app/widget/back_navigation_app.dart';
 import 'package:yusur_app/widget/custum_tap_bar_navigation.dart';
 import 'package:yusur_app/widget/diploma_item.dart';
 
@@ -125,12 +127,18 @@ class _DiplomaListViewState extends State<DiplomaListView> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 219, 219, 219),
 
-      appBar: CustomAppBar(
-        action: IconButton(icon: const Icon(Icons.search), onPressed: () {}),
-        title: const Text(
-          'معهد اكاديمية الاعلام',
-          style: TextStyle(fontWeight: FontWeight.w600),
+      appBar: BackNavigationAppBar(
+        action: Container(
+          width: 45,
+          height: 45,
+          margin: const EdgeInsets.only(left: 16.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            color: AppColors.white80,
+          ),
+          child: MyAppIcons.search,
         ),
+        title: 'معهد اكاديمية الاعلام',
       ),
 
       body: Column(
