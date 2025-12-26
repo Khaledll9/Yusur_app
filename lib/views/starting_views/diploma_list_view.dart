@@ -4,7 +4,7 @@ import 'package:yusur_app/utils/app_color.dart';
 import 'package:yusur_app/utils/app_icons.dart';
 import 'package:yusur_app/utils/app_images.dart';
 import 'package:yusur_app/widget/back_navigation_app.dart';
-import 'package:yusur_app/widget/custum_tap_bar_navigation.dart';
+import 'package:yusur_app/widget/custum_tab_bar_navigation.dart';
 import 'package:yusur_app/widget/diploma_item.dart';
 
 class DiplomaListView extends StatefulWidget {
@@ -114,6 +114,14 @@ class _DiplomaListViewState extends State<DiplomaListView> {
     ),
   ];
 
+  final List<String> categories = const [
+    'دبلومات',
+    'حاسوب',
+    'جرافكس',
+    'انجليزي',
+    'إدارة',
+    'محاسبة',
+  ];
   List<Diploma> get filteredDiplomas {
     return allDiplomas
         .where((diploma) => diploma.category == _currentCategory)
@@ -146,7 +154,12 @@ class _DiplomaListViewState extends State<DiplomaListView> {
         children: [
           const SizedBox(height: 5),
 
-          CustumTapBarNavigation(onCategorySelected: _updateCategory),
+          Expanded(
+            child: CustomTabBar(
+              onTabChanged: _updateCategory,
+              categories: categories,
+            ),
+          ),
 
           const SizedBox(height: 10),
 
@@ -184,9 +197,9 @@ class _DiplomaListViewState extends State<DiplomaListView> {
     );
   }
 
-  void _updateCategory(String newCategory) {
+  void _updateCategory(int value) {
     setState(() {
-      _currentCategory = newCategory;
+      _currentCategory = categories[value];
     });
   }
 }
