@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 class Institute extends Equatable {
@@ -68,6 +67,7 @@ class Institute extends Equatable {
     String? email,
     String? createdAt,
     String? updatedAt,
+    bool? isFavorite,
   }) {
     return Institute(
       id: id ?? this.id,
@@ -80,7 +80,12 @@ class Institute extends Equatable {
       email: email ?? this.email,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
+  }
+
+  Institute toggleFavorite() {
+    return copyWith(isFavorite: !isFavorite);
   }
 
   Map<String, dynamic> toJson() => {

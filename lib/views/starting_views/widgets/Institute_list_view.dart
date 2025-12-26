@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yusur_app/models/institute_model.dart';
 import 'package:yusur_app/utils/app_images.dart';
 
-import 'Institute_item.dart';
+import 'institute_item.dart';
 
 class InstituteItemListView extends StatelessWidget {
   final List<Institute> institutes = [

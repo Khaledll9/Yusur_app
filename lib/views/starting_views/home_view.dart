@@ -7,7 +7,7 @@ import 'package:yusur_app/views/starting_views/favorite_view.dart';
 import 'package:yusur_app/views/starting_views/profile_view.dart';
 import 'package:yusur_app/views/starting_views/widgets/main_search_app_bar.dart';
 
-import 'widgets/Institute_list_view.dart';
+import 'widgets/institute_list_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

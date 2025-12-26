@@ -30,14 +30,18 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.8
   curved_navigation_bar: ^1.0.6
+  dio: ^5.9.0
   equatable: ^2.0.7
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
+  get_it: ^9.2.0
   hugeicons: ^1.1.2
   image_picker: ^1.2.1
   intl: ^0.20.2
+  pretty_dio_logger: ^1.4.0
   svg_flutter: ^0.0.1
 
 dev_dependencies:

@@ -13,7 +13,7 @@ class Employee extends Equatable {
   final String? jobTitle;
   final String? hireDate;
   final String? salary;
-  final String isActive;
+  final String? isActive;
   final String? createdAt;
   final String? updatedAt;
 
@@ -30,7 +30,7 @@ class Employee extends Equatable {
     this.jobTitle,
     this.hireDate,
     this.salary,
-    required this.isActive,
+    this.isActive,
     this.createdAt,
     this.updatedAt,
   });
@@ -48,28 +48,31 @@ class Employee extends Equatable {
     jobTitle: json['job_title'] as String?,
     hireDate: json['hire_date'] as String?,
     salary: json['salary'] as String?,
-    isActive: (json['is_active'] as String?)!,
+    isActive: json['is_active'] as String?,
     createdAt: json['created_at'] as String?,
     updatedAt: json['updated_at'] as String?,
   );
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'code': code,
-    'user_id': userId,
-    'institute_id': instituteId,
-    'name_ar': nameAr,
-    'name_en': nameEn,
-    'gender': gender,
-    'phone': phone,
-    'address': address,
-    'job_title': jobTitle,
-    'hire_date': hireDate,
-    'salary': salary,
-    'is_active': isActive,
-    'created_at': createdAt,
-    'updated_at': updatedAt,
-  };
+  @override
+  List<Object?> get props {
+    return [
+      id,
+      code,
+      userId,
+      instituteId,
+      nameAr,
+      nameEn,
+      gender,
+      phone,
+      address,
+      jobTitle,
+      hireDate,
+      salary,
+      isActive,
+      createdAt,
+      updatedAt,
+    ];
+  }
 
   Employee copyWith({
     String? id,
@@ -107,24 +110,21 @@ class Employee extends Equatable {
     );
   }
 
-  @override
-  List<Object?> get props {
-    return [
-      id,
-      code,
-      userId,
-      instituteId,
-      nameAr,
-      nameEn,
-      gender,
-      phone,
-      address,
-      jobTitle,
-      hireDate,
-      salary,
-      isActive,
-      createdAt,
-      updatedAt,
-    ];
-  }
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'code': code,
+    'user_id': userId,
+    'institute_id': instituteId,
+    'name_ar': nameAr,
+    'name_en': nameEn,
+    'gender': gender,
+    'phone': phone,
+    'address': address,
+    'job_title': jobTitle,
+    'hire_date': hireDate,
+    'salary': salary,
+    'is_active': isActive,
+    'created_at': createdAt,
+    'updated_at': updatedAt,
+  };
 }

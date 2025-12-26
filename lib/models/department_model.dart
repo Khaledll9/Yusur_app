@@ -6,7 +6,7 @@ class Department extends Equatable {
   final String? nameEn;
   final String? description;
   final String instituteId;
-  final String isActive;
+  final String? isActive;
   final String? createdAt;
   final String? updatedAt;
 
@@ -16,7 +16,7 @@ class Department extends Equatable {
     this.nameEn,
     this.description,
     required this.instituteId,
-    required this.isActive,
+    this.isActive,
     this.createdAt,
     this.updatedAt,
   });
@@ -27,21 +27,24 @@ class Department extends Equatable {
     nameEn: json['name_en'] as String?,
     description: json['description'] as String?,
     instituteId: (json['institute_id'] as String?)!,
-    isActive: (json['is_active'] as String?)!,
+    isActive: json['is_active'] as String?,
     createdAt: json['created_at'] as String?,
     updatedAt: json['updated_at'] as String?,
   );
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'name_ar': nameAr,
-    'name_en': nameEn,
-    'description': description,
-    'institute_id': instituteId,
-    'is_active': isActive,
-    'created_at': createdAt,
-    'updated_at': updatedAt,
-  };
+  @override
+  List<Object?> get props {
+    return [
+      id,
+      nameAr,
+      nameEn,
+      description,
+      instituteId,
+      isActive,
+      createdAt,
+      updatedAt,
+    ];
+  }
 
   Department copyWith({
     String? id,
@@ -65,17 +68,14 @@ class Department extends Equatable {
     );
   }
 
-  @override
-  List<Object?> get props {
-    return [
-      id,
-      nameAr,
-      nameEn,
-      description,
-      instituteId,
-      isActive,
-      createdAt,
-      updatedAt,
-    ];
-  }
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name_ar': nameAr,
+    'name_en': nameEn,
+    'description': description,
+    'institute_id': instituteId,
+    'is_active': isActive,
+    'created_at': createdAt,
+    'updated_at': updatedAt,
+  };
 }
