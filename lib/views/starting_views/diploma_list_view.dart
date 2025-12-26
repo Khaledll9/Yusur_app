@@ -1,5 +1,3 @@
-// lib/views/home_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:yusur_app/models/diplomas_model.dart';
 import 'package:yusur_app/utils/app_images.dart';
@@ -19,6 +17,10 @@ class _DiplomaListViewState extends State<DiplomaListView> {
 
   final List<Diploma> allDiplomas = const [
     Diploma(
+      code: 'DIP001',
+      createdBy: '',
+      id: '',
+      instituteId: '',
       titleAr: 'دبلوم الرخصة الدولية',
       descriptionAr:
           'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
@@ -26,6 +28,12 @@ class _DiplomaListViewState extends State<DiplomaListView> {
       category: 'دبلومات',
     ),
     Diploma(
+      code: 'DIP001',
+      createdBy: '',
+      id: '',
+      instituteId: '',
+      createdAt: '',
+
       titleAr: 'دبلوم تصميم الجرافيك',
       descriptionAr:
           'تغطي هذه الدورة أساسيات تصميم الجرافيك باستخدام برامج مثل الفوتوشوب والإليستريتور...',
@@ -34,6 +42,12 @@ class _DiplomaListViewState extends State<DiplomaListView> {
     ),
 
     Diploma(
+      code: 'DIP001',
+      createdBy: '',
+      id: '',
+      instituteId: '',
+      createdAt: '',
+
       titleAr: 'دبلوم تطوير الويب',
       descriptionAr:
           'تتعلم في هذه الدورة كيفية بناء مواقع وتطبيقات ويب باستخدام HTML، CSS، وجافا سكريبت...',
@@ -42,6 +56,12 @@ class _DiplomaListViewState extends State<DiplomaListView> {
     ),
 
     Diploma(
+      code: 'DIP001',
+      createdBy: '',
+      id: '',
+      instituteId: '',
+      createdAt: '',
+
       titleAr: 'دبلوم إدارة الأعمال',
       descriptionAr:
           'تغطي هذه الدورة المبادئ الأساسية لإدارة الأعمال، بما في ذلك التخطيط والتنظيم والقيادة...',
@@ -50,6 +70,12 @@ class _DiplomaListViewState extends State<DiplomaListView> {
     ),
 
     Diploma(
+      code: 'DIP001',
+      createdBy: '',
+      id: '',
+      instituteId: '',
+      createdAt: '',
+
       titleAr: 'دبلوم المحاسبة المالية',
       descriptionAr:
           'تتعلم في هذه الدورة أساسيات المحاسبة المالية، بما في ذلك إعداد القوائم المالية وتحليلها...',
@@ -58,6 +84,12 @@ class _DiplomaListViewState extends State<DiplomaListView> {
     ),
 
     Diploma(
+      code: 'DIP001',
+      createdBy: '',
+      id: '',
+      instituteId: '',
+      createdAt: '',
+
       titleAr: 'دبلوم اللغة الإنجليزية للأعمال',
       descriptionAr:
           'تركز هذه الدورة على تطوير مهارات اللغة الإنجليزية في سياق الأعمال والتواصل المهني...',
@@ -66,6 +98,12 @@ class _DiplomaListViewState extends State<DiplomaListView> {
     ),
 
     Diploma(
+      code: 'DIP001',
+      createdBy: '',
+      id: '',
+      instituteId: '',
+      createdAt: '',
+
       titleAr: 'دبلوم التسويق الرقمي',
       descriptionAr:
           'تغطي هذه الدورة استراتيجيات التسويق عبر الإنترنت، بما في ذلك وسائل التواصل الاجتماعي وتحسين محركات البحث...',
@@ -78,12 +116,6 @@ class _DiplomaListViewState extends State<DiplomaListView> {
     return allDiplomas
         .where((diploma) => diploma.category == _currentCategory)
         .toList();
-  }
-
-  void _updateCategory(String newCategory) {
-    setState(() {
-      _currentCategory = newCategory;
-    });
   }
 
   @override
@@ -131,7 +163,7 @@ class _DiplomaListViewState extends State<DiplomaListView> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        titleOfDiploma: allDiplomas[index].titleAr!,
+                        titleOfDiploma: allDiplomas[index].titleAr,
                         descriptionOfDiploma: allDiplomas[index].descriptionAr!,
                         imageUrl: allDiplomas[index].photoPath!,
                         onTap: () {},
@@ -142,5 +174,11 @@ class _DiplomaListViewState extends State<DiplomaListView> {
         ],
       ),
     );
+  }
+
+  void _updateCategory(String newCategory) {
+    setState(() {
+      _currentCategory = newCategory;
+    });
   }
 }
