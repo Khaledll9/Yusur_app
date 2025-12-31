@@ -1,56 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:yusur_app/utils/app_images.dart';
+import 'package:yusur_app/view_models/course_cubit/course_test_cubit.dart';
+import 'package:yusur_app/view_models/course_cubit/course_test_state.dart';
 
-import '../../../../test_model/test_diploma.dart';
 import '../course_item.dart';
 
 class CustomTabBar extends StatelessWidget {
   final List<String> categories;
-  final ValueChanged<int>? onTabChanged;
 
-  const CustomTabBar({super.key, required this.categories, this.onTabChanged});
+  const CustomTabBar({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: categories.length,
-      child: Column(
-        children: [
-          TabBar(
-            dividerColor: Colors.transparent,
-            isScrollable: true,
-            tabAlignment: TabAlignment.start,
-            onTap: onTabChanged,
-            tabs: categories.map((c) => Tab(text: c)).toList(),
-          ),
-          Expanded(
-            child: TabBarView(
-              children: [
-                ListView.builder(
-                  itemCount: allDiplomas.length,
-                  itemBuilder: (context, index) {
-                    return CourseItem(
-                      diploma: allDiplomas[index],
-                      customIcon: SvgPicture.asset(
-                        AppImages.assetsImagesShoppingCart,
-                      ),
+    return BlocBuilder<CourseTestCubit, CourseTestState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            TabBar(
+              tabs: categories.map((taps) => Tab(text: taps)).toList(),
+              dividerColor: Colors.transparent,
+              isScrollable: true,
+              tabAlignment: TabAlignment.start,
+              onTap: (index) {
+                final cubit = context.read<CourseTestCubit>();
 
-                      onTap: () {},
-                    );
-                  },
-                ),
-
-                const Center(child: Text('Tab 2')),
-                const Center(child: Text('Tab 3')),
-                const Center(child: Text('Tab 4')),
-                const Center(child: Text('Tab 5')),
-                const Center(child: Text('Tab 6')),
-              ],
+                cubit.filterByDepartment(index);
+              },
             ),
-          ),
-        ],
-      ),
+
+            Expanded(
+              child: TabBarView(
+                children: [
+                  _buildCourseList(context, state),
+
+                  _buildCourseList(context, state),
+
+                  _buildCourseList(context, state),
+
+                  _buildCourseList(context, state),
+
+                  _buildCourseList(context, state),
+
+                  _buildCourseList(context, state),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
+}
+
+Widget _buildCourseList(BuildContext context, CourseTestState state) {
+  if (state.filteredCourses.isEmpty) {
+    return const Center(child: Text('لا توجد دورات في هذا القسم'));
+  }
+
+  return ListView.builder(
+    itemCount: state.filteredCourses.length,
+    itemBuilder: (context, index) {
+      final course = state.filteredCourses[index];
+      return CourseItem(
+        course: course,
+        customIcon: SvgPicture.asset(AppImages.assetsImagesShoppingCart),
+        onTap: () {},
+      );
+    },
+  );
 }

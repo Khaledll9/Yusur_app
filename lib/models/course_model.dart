@@ -10,7 +10,7 @@ class Course extends Equatable {
   final String? description;
   final String? price;
   final String? photoPath;
-  final String departmentId;
+  final int departmentId;
   final String? isOpen;
   final String? isActive;
   final String? createdBy;
@@ -47,7 +47,7 @@ class Course extends Equatable {
     description: json['description'] as String?,
     price: json['price'] as String?,
     photoPath: json['photo_path'] as String?,
-    departmentId: (json['department_id'] as String?)!,
+    departmentId: (json['department_id'] as int?)!,
     isOpen: json['is_open'] as String?,
     isActive: json['is_active'] as String?,
     createdBy: json['created_by'] as String?,
@@ -88,7 +88,7 @@ class Course extends Equatable {
     String? description,
     String? price,
     String? photoPath,
-    String? departmentId,
+    int? departmentId,
     String? isOpen,
     String? isActive,
     String? createdBy,

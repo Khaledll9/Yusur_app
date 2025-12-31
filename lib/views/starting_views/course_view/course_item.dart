@@ -1,18 +1,15 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-// lib/widgets/diploma_card.dart
-
 import 'package:flutter/material.dart';
-import 'package:yusur_app/models/diplomas_model.dart';
+import 'package:yusur_app/models/course_model.dart';
 import 'package:yusur_app/utils/app_text_styles.dart';
 
 class CourseItem extends StatelessWidget {
-  final Diploma diploma;
+  final Course course;
   final Widget customIcon;
   final Widget textOrIcon;
   final Function() onTap;
   const CourseItem({
     super.key,
-    required this.diploma,
+    required this.course,
     required this.customIcon,
     this.textOrIcon = const SizedBox.shrink(),
     required this.onTap,
@@ -36,7 +33,7 @@ class CourseItem extends StatelessWidget {
                 top: Radius.circular(10),
               ),
               child: Image.asset(
-                diploma.photoPath!,
+                course.photoPath!,
                 fit: BoxFit.cover,
                 width: screenWidth * 0.95,
                 height: screenWidth * 0.5,
@@ -49,7 +46,7 @@ class CourseItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(diploma.titleAr, style: TextStyles.bold16Black),
+                      Text(course.titleAr, style: TextStyles.bold16Black),
                       const Spacer(),
 
                       textOrIcon,
@@ -60,7 +57,7 @@ class CourseItem extends StatelessWidget {
                   const SizedBox(height: 8),
 
                   Text(
-                    diploma.descriptionAr!,
+                    course.description!,
                     style: TextStyles.bold14Gray,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

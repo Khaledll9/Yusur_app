@@ -4,7 +4,40 @@ import '../utils/app_images.dart';
 final List<Course> allCourses = const [
   Course(
     createdAt: '',
-    departmentId: '2',
+    departmentId: 0,
+    code: 'DIP001',
+    id: '',
+    titleAr: 'دبلوم الرخصة الدولية',
+    description:
+        'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
+    photoPath: AppImages.assetsImagesLogoForeground,
+    nameAr: '',
+  ),
+  Course(
+    createdAt: '',
+    departmentId: 0,
+    code: 'DIP001',
+    id: '',
+    titleAr: 'دبلوم تصميم الجرافيك',
+    description:
+        'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
+    photoPath: AppImages.assetsImagesLogoForeground,
+    nameAr: '',
+  ),
+  Course(
+    createdAt: '',
+    departmentId: 0,
+    code: 'DIP001',
+    id: '',
+    titleAr: 'دبلوم تطوير الويب',
+    description:
+        'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
+    photoPath: AppImages.assetsImagesLogoForeground,
+    nameAr: '',
+  ),
+  Course(
+    createdAt: '',
+    departmentId: 2,
     code: 'DIP001',
     id: '',
     titleAr: 'دورة برنامج PhotoShope ',
@@ -15,7 +48,7 @@ final List<Course> allCourses = const [
   ),
   Course(
     createdAt: '',
-    departmentId: '2',
+    departmentId: 2,
     code: 'DIP001',
     id: '',
     titleAr: 'دورة برنامج Illustrator ',
@@ -24,19 +57,9 @@ final List<Course> allCourses = const [
     photoPath: AppImages.assetsImagesLogoForeground,
     nameAr: '',
   ),
+
   Course(
-    departmentId: '2',
-    code: 'DIP001',
-    createdBy: '',
-    id: '',
-    titleAr: 'دورة تصميم الجرافيك',
-    description:
-        'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImagesLogoForeground,
-    nameAr: '',
-  ),
-  Course(
-    departmentId: '1',
+    departmentId: 1,
     code: 'DIP001',
     createdBy: '',
     id: '',
@@ -47,7 +70,7 @@ final List<Course> allCourses = const [
     nameAr: '',
   ),
   Course(
-    departmentId: '1',
+    departmentId: 1,
     code: 'DIP001',
     createdBy: '',
     id: '',
@@ -58,7 +81,7 @@ final List<Course> allCourses = const [
     nameAr: '',
   ),
   Course(
-    departmentId: '1',
+    departmentId: 1,
     code: 'DIP001',
     createdBy: '',
     id: '',
@@ -69,7 +92,7 @@ final List<Course> allCourses = const [
     nameAr: '',
   ),
   Course(
-    departmentId: '1',
+    departmentId: 1,
     code: 'DIP001',
     createdBy: '',
     id: '',
@@ -80,7 +103,7 @@ final List<Course> allCourses = const [
     nameAr: '',
   ),
   Course(
-    departmentId: '3',
+    departmentId: 3,
     code: 'DIP001',
     createdBy: '',
     id: '',
@@ -91,7 +114,7 @@ final List<Course> allCourses = const [
     nameAr: '',
   ),
   Course(
-    departmentId: '3',
+    departmentId: 3,
     code: 'DIP001',
     createdBy: '',
     id: '',
@@ -102,7 +125,7 @@ final List<Course> allCourses = const [
     nameAr: '',
   ),
   Course(
-    departmentId: '5',
+    departmentId: 5,
     code: 'DIP001',
     createdBy: '',
     id: '',
