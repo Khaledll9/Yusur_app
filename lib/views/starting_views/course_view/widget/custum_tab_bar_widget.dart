@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:svg_flutter/svg.dart';
-import 'package:yusur_app/utils/app_images.dart';
+import 'package:yusur_app/utils/app_icons.dart';
 import 'package:yusur_app/view_models/course_cubit/course_test_cubit.dart';
 import 'package:yusur_app/view_models/course_cubit/course_test_state.dart';
 
+import '../../../../test_model/test_diploma.dart';
+import '../../../../utils/app_color.dart';
 import '../course_item.dart';
 
 class CustomTabBar extends StatelessWidget {
-  final List<String> categories;
-
-  const CustomTabBar({super.key, required this.categories});
+  const CustomTabBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +18,12 @@ class CustomTabBar extends StatelessWidget {
         return Column(
           children: [
             TabBar(
+              overlayColor: WidgetStateProperty.all(AppColors.primary100),
+              indicatorColor: AppColors.primaryColor,
+              labelColor: AppColors.primaryColor,
+              splashFactory: InkSplash.splashFactory,
+              splashBorderRadius: const BorderRadius.all(Radius.circular(12)),
+              unselectedLabelColor: AppColors.black80,
               tabs: categories.map((taps) => Tab(text: taps)).toList(),
               dividerColor: Colors.transparent,
               isScrollable: true,
@@ -32,6 +37,7 @@ class CustomTabBar extends StatelessWidget {
 
             Expanded(
               child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   _buildCourseList(context, state),
 
@@ -65,7 +71,8 @@ Widget _buildCourseList(BuildContext context, CourseTestState state) {
       final course = state.filteredCourses[index];
       return CourseItem(
         course: course,
-        customIcon: SvgPicture.asset(AppImages.assetsImagesShoppingCart),
+        customIcon: MyAppIcons.delete,
+        textOrIcon: MyAppIcons.edit,
         onTap: () {},
       );
     },

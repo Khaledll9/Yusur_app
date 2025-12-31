@@ -4,6 +4,7 @@ import 'package:yusur_app/models/course_model.dart';
 import 'package:yusur_app/utils/app_text_styles.dart';
 
 import '../../../routes/app_routes.dart';
+import '../../../utils/app_color.dart';
 
 class CourseItem extends StatelessWidget {
   final Course course;
@@ -25,27 +26,28 @@ class CourseItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.goNamed(AppRoutes.courseDetailView, extra: course),
       child: Card(
+        color: AppColors.white,
         elevation: 2,
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(10),
+                ),
+                child: Image.asset(
+                  course.photoPath!,
+                  fit: BoxFit.cover,
+                  width: screenWidth * 0.95,
+                  height: screenWidth * 0.5,
+                ),
               ),
-              child: Image.asset(
-                course.photoPath!,
-                fit: BoxFit.cover,
-                width: screenWidth * 0.95,
-                height: screenWidth * 0.5,
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
+              const SizedBox(height: 8),
+              Column(
                 children: [
                   Row(
                     children: [
@@ -67,8 +69,8 @@ class CourseItem extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -17,6 +17,7 @@ class InstituteItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
       child: InkWell(
+        splashColor: AppColors.primary100,
         borderRadius: const BorderRadius.all(Radius.circular(16.0)),
         onTap: () => context.goNamed(AppRoutes.courseView),
         child: Card(
