@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../test_model/test_diploma.dart';
 import '../../../utils/app_color.dart';
 import '../../../utils/app_text_styles.dart';
 
@@ -31,15 +32,13 @@ class CustomDropdownMenu extends StatelessWidget {
         alignment: AlignmentGeometry.center,
         icon: const SizedBox.shrink(),
         onChanged: (value) {},
-        items: ['حاسوب', 'جرافيكس', 'انجليزي', 'إدارة', 'محاسبة']
-            .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem(
-                value: value,
-                alignment: AlignmentGeometry.center,
-                child: Text(value, style: TextStyles.medium14Black),
-              );
-            })
-            .toList(),
+        items: categories.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem(
+            value: value,
+            alignment: AlignmentGeometry.center,
+            child: Text(value, style: TextStyles.medium14Black),
+          );
+        }).toList(),
       ),
     );
   }

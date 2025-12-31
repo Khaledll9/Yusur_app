@@ -11,7 +11,6 @@ final List<Diploma> allDiplomas = const [
     descriptionAr:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
     photoPath: AppImages.assetsImagesLogoForeground,
-    category: 'دبلومات',
   ),
   Diploma(
     code: 'DIP001',
@@ -24,7 +23,6 @@ final List<Diploma> allDiplomas = const [
     descriptionAr:
         'تغطي هذه الدورة أساسيات تصميم الجرافيك باستخدام برامج مثل الفوتوشوب والإليستريتور...',
     photoPath: AppImages.assetsImagesLogoForeground,
-    category: 'جرافكس',
   ),
 
   Diploma(
@@ -38,7 +36,6 @@ final List<Diploma> allDiplomas = const [
     descriptionAr:
         'تتعلم في هذه الدورة كيفية بناء مواقع وتطبيقات ويب باستخدام HTML، CSS، وجافا سكريبت...',
     photoPath: AppImages.assetsImagesLogoForeground,
-    category: 'حاسوب',
   ),
 
   Diploma(
@@ -52,7 +49,6 @@ final List<Diploma> allDiplomas = const [
     descriptionAr:
         'تغطي هذه الدورة المبادئ الأساسية لإدارة الأعمال، بما في ذلك التخطيط والتنظيم والقيادة...',
     photoPath: AppImages.assetsImagesLogoForeground,
-    category: 'إدارة',
   ),
 
   Diploma(
@@ -66,7 +62,6 @@ final List<Diploma> allDiplomas = const [
     descriptionAr:
         'تتعلم في هذه الدورة أساسيات المحاسبة المالية، بما في ذلك إعداد القوائم المالية وتحليلها...',
     photoPath: AppImages.assetsImagesLogoForeground,
-    category: 'محاسبة',
   ),
 
   Diploma(
@@ -80,7 +75,6 @@ final List<Diploma> allDiplomas = const [
     descriptionAr:
         'تركز هذه الدورة على تطوير مهارات اللغة الإنجليزية في سياق الأعمال والتواصل المهني...',
     photoPath: AppImages.assetsImagesLogoForeground,
-    category: 'انجليزي',
   ),
 
   Diploma(
@@ -94,7 +88,6 @@ final List<Diploma> allDiplomas = const [
     descriptionAr:
         'تغطي هذه الدورة استراتيجيات التسويق عبر الإنترنت، بما في ذلك وسائل التواصل الاجتماعي وتحسين محركات البحث...',
     photoPath: AppImages.assetsImagesLogoForeground,
-    category: 'إدارة',
   ),
 ];
 
