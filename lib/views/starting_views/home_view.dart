@@ -29,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: const MainSearchAppBar(),
       body: [
-        InstituteItemListView(),
+        const InstituteItemListView(),
         const FavoriteView(),
         const ProfileView(),
       ][index],

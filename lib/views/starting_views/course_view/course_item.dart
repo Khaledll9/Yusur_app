@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:yusur_app/models/course_model.dart';
 import 'package:yusur_app/utils/app_text_styles.dart';
+
+import '../../../routes/app_routes.dart';
 
 class CourseItem extends StatelessWidget {
   final Course course;
@@ -20,7 +23,7 @@ class CourseItem extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => context.goNamed(AppRoutes.courseDetailView, extra: course),
       child: Card(
         elevation: 2,
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
