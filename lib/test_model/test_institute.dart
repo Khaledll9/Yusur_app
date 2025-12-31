@@ -18,7 +18,7 @@ final List<Institute> institutes = [
   ),
   const Institute(
     id: '3',
-    nameAr: 'معهد For-You ]',
+    nameAr: 'معهد For-You',
     address: 'تعز - العقبة - مقابل تعز مول',
     isFavorite: false,
     photoPath: AppImages.assetsImagesBackground1,

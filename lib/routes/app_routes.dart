@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart' show GoRouter, GoRoute;
 import 'package:yusur_app/models/course_model.dart';
+import 'package:yusur_app/models/institute_model.dart';
 import 'package:yusur_app/views/add_and_edit/edit_course_view.dart';
 import 'package:yusur_app/views/starting_views/course_view/course_details_view.dart';
 
-import '../views/add_and_edit/add_course_view.dart';
 import '../views/starting_views/course_view/course_view.dart';
 import '../views/starting_views/home_view.dart';
 
@@ -20,12 +20,14 @@ class AppRouter {
           GoRoute(
             name: AppRoutes.courseView,
             path: '/course',
-            builder: (context, state) => const CourseView(),
+            builder: (context, state) =>
+                CourseView(institute: state.extra as Institute),
             routes: [
               GoRoute(
                 name: AppRoutes.editCourseView,
                 path: '/editCourse',
-                builder: (context, state) => const EditCourseView(),
+                builder: (context, state) =>
+                    EditCourseView(course: state.extra as Course),
               ),
               GoRoute(
                 name: AppRoutes.courseDetailView,

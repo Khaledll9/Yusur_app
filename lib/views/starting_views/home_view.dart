@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:yusur_app/utils/app_icons.dart';
@@ -28,21 +26,23 @@ class _HomeViewState extends State<HomeView> {
 
     return Scaffold(
       appBar: const MainSearchAppBar(),
-      body: [
-        const InstituteItemListView(),
-        const FavoriteView(),
-        const ProfileView(),
-      ][index],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+        child: [
+          const InstituteItemListView(),
+          const FavoriteView(),
+          const ProfileView(),
+        ][index],
+      ),
 
       bottomNavigationBar: CurvedNavigationBar(
         items: items,
-        height: 50,
+        height: 60,
         index: index,
         backgroundColor: Colors.transparent,
         onTap: (value) {
           setState(() {
             index = value;
-            log(index.toString());
           });
         },
       ),

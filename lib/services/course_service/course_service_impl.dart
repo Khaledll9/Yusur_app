@@ -1,4 +1,3 @@
-// lib/features/course/data/services/course_service.dart
 import 'package:dio/dio.dart';
 
 import '../../models/course_model.dart';

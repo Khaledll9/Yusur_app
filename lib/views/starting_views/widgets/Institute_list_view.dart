@@ -10,7 +10,10 @@ class InstituteItemListView extends StatelessWidget {
     return ListView.builder(
       itemCount: institutes.length,
       itemBuilder: (context, index) {
-        return InstituteItem(institute: institutes[index]);
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 6),
+          child: InstituteItem(institute: institutes[index]),
+        );
       },
     );
   }

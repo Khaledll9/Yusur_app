@@ -22,6 +22,7 @@ class YusurApp extends StatelessWidget {
     return CubitProviders(
       child: MaterialApp.router(
         theme: ThemeData(
+          primaryColor: AppColors.primaryColor,
           fontFamily: 'LamaSans',
           scaffoldBackgroundColor: AppColors.backgroundColor,
         ),

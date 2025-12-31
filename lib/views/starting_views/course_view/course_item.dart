@@ -24,7 +24,7 @@ class CourseItem extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return GestureDetector(
-      onTap: () => context.goNamed(AppRoutes.courseDetailView, extra: course),
+      onTap: () => context.pushNamed(AppRoutes.courseDetailView, extra: course),
       child: Card(
         color: AppColors.white,
         elevation: 2,
@@ -36,9 +36,7 @@ class CourseItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(10),
-                ),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: Image.asset(
                   course.photoPath!,
                   fit: BoxFit.cover,
@@ -51,19 +49,39 @@ class CourseItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(course.titleAr, style: TextStyles.bold16Black),
+                      Text(course.titleAr, style: TextStyles.bold14Black),
                       const Spacer(),
 
-                      textOrIcon,
-                      const SizedBox(width: 6),
-                      customIcon,
+                      SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: IconButton(
+                          onPressed: () {
+                            context.pushNamed(
+                              AppRoutes.editCourseView,
+                              extra: course,
+                            );
+                          },
+                          icon: textOrIcon,
+                          padding: EdgeInsets.zero,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: customIcon,
+                          padding: EdgeInsets.zero,
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-
+                  const SizedBox(height: 6),
                   Text(
                     course.description!,
-                    style: TextStyles.bold14Gray,
+                    style: TextStyles.medium14Gray,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

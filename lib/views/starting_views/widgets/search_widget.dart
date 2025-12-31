@@ -10,21 +10,27 @@ class SearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 15),
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.only(left: 22),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(15.0),
-        border: Border.all(color: AppColors.backgroundColor, width: 1),
       ),
-      child: const TextField(
-        decoration: InputDecoration(
-          prefixIcon: MyAppIcons.search,
-          hintText: 'بحث',
-          hintStyle: TextStyles.medium14Gray,
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 18.0),
-        ),
+      child: const Row(
+        children: [
+          MyAppIcons.search,
+          SizedBox(width: 4),
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'بحث',
+                hintStyle: TextStyles.medium14Gray,
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(vertical: 18.0),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
