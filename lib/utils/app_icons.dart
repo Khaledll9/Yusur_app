@@ -88,4 +88,8 @@ class MyAppIcons {
     icon: HugeIcons.strokeRoundedArrowDown01,
     color: AppColors.black80,
   );
+  static const Widget wifi = HugeIcon(
+    icon: HugeIcons.strokeRoundedWifiOff02,
+    color: AppColors.textColor,
+  );
 }
