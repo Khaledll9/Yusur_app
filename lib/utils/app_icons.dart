@@ -92,4 +92,8 @@ class MyAppIcons {
     icon: HugeIcons.strokeRoundedWifiOff02,
     color: AppColors.textColor,
   );
+  static const Widget shoppingCartGray = HugeIcon(
+    icon: HugeIcons.strokeRoundedShoppingCart02,
+    color: AppColors.textColor,
+  );
 }

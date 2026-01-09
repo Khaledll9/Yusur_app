@@ -11,7 +11,7 @@ class EmptyReservationView extends StatelessWidget {
       body: EmptyStateBody(
         title: "لا يوجد  حجوزات بعد ",
         subTitle: "قم بحجز دورة لتظهر هنا ",
-        iconWidget: MyAppIcons.shoppingCart,
+        iconWidget: MyAppIcons.shoppingCartGray,
       ),
     );
   }
