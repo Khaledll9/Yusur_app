@@ -80,4 +80,10 @@ abstract class TextStyles {
     fontSize: 12,
     color: Colors.grey,
   );
+  static const TextStyle semiBold18ExpandedBlack = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 18,
+    color: Colors.black,
+    fontFamily: 'LamaSansExpanded',
+  );
 }

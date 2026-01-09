@@ -34,7 +34,7 @@ class EmptyStateBody extends StatelessWidget {
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: TextStyles.bold18,
+                style: TextStyles.semiBold18ExpandedBlack,
               ),
               const SizedBox(height: 16),
               Text(
