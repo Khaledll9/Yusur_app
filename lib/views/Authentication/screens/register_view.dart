@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../utils/app_color.dart';
-import '../../utils/app_images.dart';
-import '../../utils/app_text_styles.dart';
-import '../../utils/app_icons.dart';
+import '../../../utils/app_color.dart';
+import '../../../utils/app_images.dart';
+import '../../../utils/app_text_styles.dart';
+import '../../../utils/app_icons.dart';
 import '../widgets/custom_auth_text_field.dart';
 import '../widgets/custom_auth_button.dart';
+import '../widgets/custom_auth_tab.dart';
 import 'login_view.dart';
 
 class RegisterView extends StatefulWidget {
@@ -62,15 +63,23 @@ class _RegisterViewState extends State<RegisterView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildTab('إنشاء حساب', true, () {}),
-                          _buildTab('تسجيل دخول', false, () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginView(),
-                              ),
-                            );
-                          }),
+                          CustomAuthTab(
+                            title: 'إنشاء حساب',
+                            isActive: true,
+                            onTap: () {},
+                          ),
+                          CustomAuthTab(
+                            title: 'تسجيل دخول',
+                            isActive: false,
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginView(),
+                                ),
+                              );
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -136,27 +145,6 @@ class _RegisterViewState extends State<RegisterView> {
             ),
           );
         },
-      ),
-    );
-  }
-
-  Widget _buildTab(String title, bool isActive, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Text(title, style: TextStyles.bold14Black),
-          const SizedBox(height: 10),
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            height: 3,
-            width: isActive ? 100 : 0,
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        ],
       ),
     );
   }
