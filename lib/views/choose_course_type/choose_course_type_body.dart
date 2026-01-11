@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'courses_component.dart';
+import 'listtile_component.dart';
 import './widgets/custom_container.dart';
 
-class ChooseCoursestypeBody extends StatelessWidget {
+class ChooseCourseTypeBody extends StatelessWidget {
   final bool isSelected;
-  const ChooseCoursestypeBody({super.key, this.isSelected = false});
+  const ChooseCourseTypeBody({super.key, this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +15,13 @@ class ChooseCoursestypeBody extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CoursesBox(
+              CustomContainer(
                 // just to try an image
-                myimage: Image.asset("assets/images/logo_foreground.png"),
+                image: Image.asset("assets/images/logo_foreground.png"),
                 title: "الدورات والدبلومات التي يقدمهاالمعهد",
               ),
-              const CoursesBox(
-                //myimage: Image.asset("assets/images/logo_foreground.png"),
+              const CustomContainer(
+                //image: Image.asset("assets/images/logo_foreground.png"),
                 title: "الدورات والدبلومات الحالية",
               ),
             ],

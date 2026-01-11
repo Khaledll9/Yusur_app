@@ -9,12 +9,9 @@ class ListTileComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        AddCourseListTile(myicon: MyAppIcons.addCourse, mytitle: "اضافة دورة "),
+        CustomListTile(icon: MyAppIcons.addCourse, title: "اضافة دورة "),
         SizedBox(height: 30),
-        AddCourseListTile(
-          myicon: MyAppIcons.addCourse,
-          mytitle: "اضافة دبلوم ",
-        ),
+        CustomListTile(icon: MyAppIcons.addDiploma, title: "اضافة دبلوم "),
       ],
     );
   }

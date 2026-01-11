@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:yusur_app/utils/app_color.dart';
 import 'package:yusur_app/utils/app_text_styles.dart';
 
-class CoursesBox extends StatelessWidget {
-  final Widget? myimage;
+class CustomContainer extends StatelessWidget {
+  final Widget? image;
   final String title;
 
-  const CoursesBox({super.key, this.myimage, required this.title});
+  const CustomContainer({super.key, this.image, required this.title});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,9 +19,9 @@ class CoursesBox extends StatelessWidget {
         boxShadow: const [
           BoxShadow(
             color: AppColors.black80,
-            spreadRadius: 1,
-            blurRadius: 3,
-            offset: Offset(0, 2),
+            spreadRadius: -12,
+            blurRadius: 12,
+            offset: Offset(0, 6),
           ),
         ],
       ),
@@ -35,7 +35,7 @@ class CoursesBox extends StatelessWidget {
               color: AppColors.textColor,
               borderRadius: BorderRadius.circular(15.0),
             ),
-            child: FittedBox(fit: BoxFit.cover, child: myimage),
+            child: FittedBox(fit: BoxFit.cover, child: image),
           ),
           const SizedBox(height: 20.0),
           Text(
