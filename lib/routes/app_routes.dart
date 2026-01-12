@@ -6,6 +6,7 @@ import 'package:yusur_app/views/Authentication/screens/register_view.dart';
 import 'package:yusur_app/views/add_and_edit/edit_course_view.dart';
 import 'package:yusur_app/views/choose_course_type/choose_course_view.dart';
 import 'package:yusur_app/views/starting_views/course_view/course_details_view.dart';
+import 'package:yusur_app/views/starting_views/drawer_view.dart';
 
 import '../views/add_and_edit/add_course_view.dart';
 import '../views/add_and_edit/add_diploma_view.dart';
@@ -18,7 +19,7 @@ class AppRouter {
       GoRoute(
         name: AppRoutes.onBoardingView,
         path: '/',
-        builder: (context, state) => const OnboardingScreen(),
+        builder: (context, state) => const DrawerView(),
       ),
       GoRoute(
         name: AppRoutes.loginView,
