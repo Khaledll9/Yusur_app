@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_text_styles.dart';
 
@@ -18,7 +19,6 @@ class CustomAuthTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-
       child: Column(
         children: [
           Text(title, style: TextStyles.bold14Black),

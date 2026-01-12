@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:yusur_app/routes/app_routes.dart';
+
 import '../../../../utils/app_color.dart';
+import '../../../utils/app_icons.dart';
 import '../../../utils/app_images.dart';
 import '../../../utils/app_text_styles.dart';
-import '../../../utils/app_icons.dart';
-import '../widgets/custom_auth_text_field.dart';
 import '../widgets/custom_auth_button.dart';
 import '../widgets/custom_auth_tab.dart';
-import 'register_view.dart';
+import '../widgets/custom_auth_text_field.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -18,13 +20,6 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +59,7 @@ class _LoginViewState extends State<LoginView> {
                             title: 'إنشاء حساب',
                             isActive: false,
                             onTap: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const RegisterView(),
-                                ),
-                              );
+                              context.goNamed(AppRoutes.registerView);
                             },
                           ),
                           CustomAuthTab(
@@ -90,7 +80,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 7, 3, 3),
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(40),
@@ -117,7 +107,9 @@ class _LoginViewState extends State<LoginView> {
                             const SizedBox(height: 40),
                             CustomAuthButton(
                               text: 'تسجيل دخول',
-                              onPressed: () {},
+                              onPressed: () {
+                                context.goNamed(AppRoutes.homeView);
+                              },
                             ),
                           ],
                         ),
@@ -131,5 +123,12 @@ class _LoginViewState extends State<LoginView> {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

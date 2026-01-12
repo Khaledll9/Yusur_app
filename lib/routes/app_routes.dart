@@ -1,6 +1,9 @@
 import 'package:go_router/go_router.dart' show GoRouter, GoRoute;
 import 'package:yusur_app/models/course_model.dart';
 import 'package:yusur_app/models/institute_model.dart';
+import 'package:yusur_app/onboarding/screens/onboarding_screen.dart';
+import 'package:yusur_app/views/Authentication/screens/login_view.dart';
+import 'package:yusur_app/views/Authentication/screens/register_view.dart';
 import 'package:yusur_app/views/add_and_edit/edit_course_view.dart';
 import 'package:yusur_app/views/starting_views/course_view/course_details_view.dart';
 
@@ -8,12 +11,26 @@ import '../views/starting_views/course_view/course_view.dart';
 import '../views/starting_views/home_view.dart';
 
 class AppRouter {
-  AppRouter._();
   static GoRouter router = GoRouter(
     routes: [
       GoRoute(
-        name: AppRoutes.homeView,
+        name: AppRoutes.onBoardingView,
         path: '/',
+        builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        name: AppRoutes.loginView,
+        path: '/login',
+        builder: (context, state) => const LoginView(),
+      ),
+      GoRoute(
+        name: AppRoutes.registerView,
+        path: '/register',
+        builder: (context, state) => const RegisterView(),
+      ),
+      GoRoute(
+        name: AppRoutes.homeView,
+        path: '/home',
         builder: (context, state) => const HomeView(),
 
         routes: [
@@ -41,12 +58,16 @@ class AppRouter {
       ),
     ],
   );
+  AppRouter._();
 }
 
 class AppRoutes {
-  AppRoutes._();
   static const String homeView = 'home';
   static const String courseView = 'course';
   static const String editCourseView = 'editCourse';
   static const String courseDetailView = 'courseDetail';
+  static const String onBoardingView = 'onBoarding';
+  static const String loginView = 'login';
+  static const String registerView = 'register';
+  AppRoutes._();
 }
