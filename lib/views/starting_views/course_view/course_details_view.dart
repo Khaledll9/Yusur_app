@@ -15,9 +15,21 @@ class CourseDetailsView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            Image.asset(course.photoPath!),
+            ClipRRect(
+              borderRadius: BorderRadiusGeometry.circular(10),
+
+              child: Image.asset(course.photoPath!),
+            ),
             const SizedBox(height: 20),
-            Text(course.description!),
+
+            Expanded(
+              child: ListView(
+                children: [
+                  const Text('عدد الطلاب المهتمين بالدورة .... طالب '),
+                  Text(course.description!),
+                ],
+              ),
+            ),
           ],
         ),
       ),
