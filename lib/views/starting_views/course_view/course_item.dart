@@ -33,7 +33,6 @@ class CourseItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -46,15 +45,21 @@ class CourseItem extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      Text(course.titleAr, style: TextStyles.bold14Black),
-                      const Spacer(),
+                      Expanded(
+                        child: Text(
+                          course.titleAr,
+                          style: TextStyles.bold14Black,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
 
                       SizedBox(
-                        width: 24,
-                        height: 24,
+                        width: 32,
+                        height: 32,
                         child: IconButton(
                           onPressed: () {
                             context.pushNamed(
@@ -66,10 +71,10 @@ class CourseItem extends StatelessWidget {
                           padding: EdgeInsets.zero,
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 8),
                       SizedBox(
-                        width: 24,
-                        height: 24,
+                        width: 32,
+                        height: 32,
                         child: IconButton(
                           onPressed: () {},
                           icon: customIcon,

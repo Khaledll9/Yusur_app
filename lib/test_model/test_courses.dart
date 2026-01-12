@@ -10,7 +10,7 @@ final List<Course> allCourses = const [
     titleAr: 'دبلوم الرخصة الدولية',
     description:
         'دبلوم الرخصة الدولية (ICDL) هو برنامج عالمي معترف به يؤهل المشاركين لإتقان المهارات الأساسية في استخدام الحاسوب وتطبيقاته المكتبية. تهدف الدورة إلى تمكين المتدربين من فهم أساسيات تقنية المعلومات، واستخدام برامج Microsoft Office باحترافية (Word, Excel, PowerPoint, Access)، والتعامل مع الإنترنت والبريد الإلكتروني بأمان وكفاءة. تتضمن الدورة محتوى نظرياً وعملياً يغطي معالجة النصوص، الجداول الإلكترونية، العروض التقديمية، قواعد البيانات، وأساسيات أمن المعلومات. بنهاية الدورة، يحصل المشارك على شهادة دولية معتمدة تفتح آفاقاً وظيفية واسعة في سوق العمل. لا تشترط الدورة خبرة مسبقة، وتناسب جميع الأعمار والمستويات التعليمية.',
-    photoPath: AppImages.assetsImagesTestImage,
+    photoPath: AppImages.assetsImagesCoursesImageIcdlDiploma,
     nameAr: '',
   ),
   Course(
@@ -21,7 +21,7 @@ final List<Course> allCourses = const [
     titleAr: 'دبلوم تصميم الجرافيك',
     description:
         'دبلوم متكامل في تصميم الجرافيك يهدف إلى تأهيل المشاركين لسوق العمل في مجال التصميم الإبداعي. يغطي البرنامج أساسيات ومبادئ التصميم الجرافيكي، وتقنيات التصميم الرقمي باستخدام أبرز البرامج مثل Adobe Photoshop و Illustrator و InDesign. يتعلم المشاركون إنشاء الشعارات، الهويات البصرية، الإعلانات المطبوعة والرقمية، تحرير الصور، تصميم الإنفوجرافيك، وإخراج المشاريع للطباعة والويب. يشتمل البرنامج على مشاريع عملية تطبيقية وبناء بورتفوليو احترافي. يناسب المبتدئين والمصممين الراغبين في تطوير مهاراتهم.',
-    photoPath: AppImages.assetsImagesLogoForeground,
+    photoPath: AppImages.assetsImagesCoursesImageGraphicDesignDiploma,
     nameAr: '',
   ),
   Course(
@@ -32,7 +32,7 @@ final List<Course> allCourses = const [
     titleAr: 'دبلوم تطوير الويب',
     description:
         'دبلوم احترافي في تطوير الويب يهدف إلى إعداد مطوري ويب متكاملين قادرين على بناء مواقع وتطبيقات ويب تفاعلية متكاملة. يغطي البرنامج مسارين أساسيين: Front-end Development (HTML5, CSS3, JavaScript, React.js) و Back-end Development (Node.js, Python, PHP, قواعد البيانات MySQL و MongoDB). يتضمن البرنامج مشاريع عملية مثل بناء موقع تجارة إلكترونية، منصة مدونات، وتطبيقات ويب ديناميكية. بنهاية الدبلوم، يكون المشارك قادراً على العمل كمطور ويب مستقل أو الانضمام لفرق تطوير في الشركات التقنية.',
-    photoPath: AppImages.assetsImagesTestImage,
+    photoPath: AppImages.assetsImagesCoursesImageWebDevelopmentDiploma,
     nameAr: '',
   ),
   Course(
@@ -43,7 +43,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة برنامج Photoshop',
     description:
         'دورة متخصصة في إتقان برنامج Adobe Photoshop، الأداة الرائدة عالمياً في تحرير الصور والتصميم الرقمي. تغطي الدورة جميع الأدوات والتقنيات الأساسية والمتقدمة مثل: تحرير الصور الاحترافي، التلاعب بالصور (Photo Manipulation)، استخدام الطبقات والأقنعة، التصميم الإعلاني، تصميم الواجهات البصرية UI، معالجة الألوان والضوء، وإعداد الملفات للطباعة والويب. تتضمن الدورة تمارين تطبيقية على مشاريع واقعية لبناء محفظة أعمال قوية. مناسبة للمصورين، المصممين، المسوقين، والمهتمين بالإبداع الرقمي.',
-    photoPath: AppImages.assetsImagesTestImage,
+    photoPath: AppImages.assetsImagesCoursesImagePhotoshopEditingDemo,
     nameAr: '',
   ),
   Course(
@@ -54,7 +54,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة برنامج Illustrator',
     description:
         'دورة متقدمة في برنامج Adobe Illustrator المتخصص في الرسم والتصميم المتجهي (Vector Graphics). تركز الدورة على إنشاء الرسومات التوضيحية، الشعارات، الأيقونات، التصاميم المطبعية Typography، والرسومات القابلة للتوسع دون فقدان الجودة. \nتشمل التقنيات المتقدمة: استخدام أدارة Pen Tool باحترافية، إنشاء الأنماط والفرش، العمل مع الشبكات المتكررة، تصميم الإنفوجرافيك، وإعداد الملفات للطباعة والويب. مثالية لمصممي الجرافيك، مصممي الشعارات، والفنانين الرقميين.',
-    photoPath: AppImages.assetsImagesTestImage,
+    photoPath: AppImages.assetsImagesCoursesImageVectorIllustrationCreation,
     nameAr: '',
   ),
   Course(
@@ -65,7 +65,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة تطوير الويب',
     description:
         'دورة مكثفة تغطي مسار كامل لتطوير الويب من البداية إلى الاحتراف. تبدأ بأساسيات HTML، CSS، و JavaScript، ثم الانتقال إلى إطار العمل React.js لبناء واجهات مستخدم ديناميكية. يتعلم المشاركون أيضاً تطوير الخادم باستخدام Node.js و Express.js، والتعامل مع قواعد البيانات SQL و NoSQL. تشمل الدورة مفاهيم حديثة مثل APIs، التوثيق Authentication، نشر التطبيقات على السحابة، وأفضل ممارسات أمن الويب. يتم تنفيذ عدة مشاريع عملية تشمل بناء موقع شخصي، متجر إلكتروني، ومنصة محتوى.',
-    photoPath: AppImages.assetsImagesTestImage,
+    photoPath: AppImages.assetsImagesCoursesImageImages,
     nameAr: '',
   ),
   Course(
@@ -87,7 +87,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة تطوير تطبيقات سطح المكتب',
     description:
         'دورة تهدف إلى تعليم المشاركين تطوير تطبيقات سطح المكتب لأنظمة التشغيل المختلفة (Windows, macOS, Linux). تستخدم الدورة لغات وأطر عمل شائعة مثل C# مع .NET Framework، Java مع JavaFX، أو Python مع PyQt/Tkinter. تشمل مواضيع: بناء واجهات المستخدم GUI، التعامل مع الملفات والنظم، الربط مع قواعد البيانات، تعدد المهام Threading، وحزم التطبيق للتوزيع. مناسبة للمطورين الراغبين في بناء برامج إدارية، أدوات مساعدة، أو تطبيقات المؤسسات.',
-    photoPath: AppImages.assetsImagesTestImage,
+    photoPath: AppImages.assetsImagesCoursesImageDesktopAppUi,
     nameAr: '',
   ),
   Course(
@@ -98,7 +98,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة صيانة الهاتف',
     description:
         'دورة عملية تهدف إلى تأهيل المشاركين لفهم هيكل الهواتف الذكية وإجراءات الصيانة الأساسية والمتقدمة. تشمل: التعرف على المكونات الإلكترونية الرئيسية (الشاشات، البطاريات، الكاميرات، منافذ الشحن)، أدوات الصيانة واستخدامها الآمن، تشخيص الأعطال الشائعة (مشاكل الشحن، الصوت، الشبكة)، تقنيات فك وتركيب الهواتف، استبدال القطع التالفة، ومبادئ أساسية في إصلاح اللوحات الإلكترونية. تشمل جلسات عملية على أجهزة حقيقية. تناسب الراغبين في العمل في مراكز الصيانة أو تطوير مهاراتهم الشخصية.',
-    photoPath: AppImages.assetsImagesTestImage,
+    photoPath: AppImages.assetsImagesCoursesImageSmartphoneRepairTools,
     nameAr: '',
   ),
   Course(
@@ -109,7 +109,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة تعلم الإنجليزية للعمل',
     description:
         'دورة متخصصة في اللغة الإنجليزية للمهنيين وبيئات العمل، تهدف إلى تطوير المهارات التواصلية اللازمة للنجاح في السياق المهني الدولي. تركز على مهارات المحادثة في الاجتماعات والعروض التقديمية، كتابة البريد الإلكتروني والتقارير المهنية، المصطلحات التجارية والإدارية، وفهم الثقافات المختلفة في العمل. تشمل تمارين محاكاة للحوارات المهنية، مراجعة القواعد اللغوية في السياق العملي، وبناء المفردات المتخصصة. مناسبة للموظفين، الباحثين عن عمل، ورواد الأعمال.',
-    photoPath: AppImages.assetsImagesTestImage,
+    photoPath: AppImages.assetsImagesCoursesImageBusinessEnglishMeeting,
     nameAr: '',
   ),
   Course(
@@ -120,7 +120,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة تحضير TOEFL',
     description:
         'دورة تحضيرية مكثفة ومتخصصة لاختبار TOEFL iBT، مصممة لمساعدة المشاركين على تحقيق أعلى الدرجات. تغطي جميع أقسام الاختبار الأربعة: القراءة (Reading) مع استراتيجيات الفهم السريع، الاستماع (Listening) وتحديد الأفكار الرئيسية، التحدث (Speaking) مع تدريب على الإجابات المنظمة، والكتابة (Writing) للمقالات الأكاديمية. تتضمن نماذج اختبارات حقيقية، تحليل للأخطاء الشائعة، نصائح لإدارة الوقت، وتمارين لتحسين المفردات الأكاديمية. يشرف على الدورة مدربون معتمدون.',
-    photoPath: AppImages.assetsImagesLogoForeground,
+    photoPath: AppImages.assetsImagesCoursesImageBusinessManagementDiploma,
     nameAr: '',
   ),
   Course(
@@ -131,7 +131,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة تعلم النظام المحاسبي',
     description:
         'دورة عملية تهدف إلى تأهيل المشاركين لفهم وتطبيق المبادئ المحاسبية واستخدام الأنظمة المحاسبية المحوسبة مثل برامج (بيانات، سيجما، زوهو). تشمل: أساسيات القيد المزدوج، تسجيل القيود اليومية، إعداد حسابات التسوية، جرد المخزون، إعداد القوائم المالية (قائمة الدخل، الميزانية العمومية)، ومعالجة الرواتب والضرائب. تركز الدورة على التطبيق العملي من خلال برامج محاسبية واقعية وحالات دراسية. تناسب موظفي المحاسبة المبتدئين، أصحاب المشاريع الصغيرة، والخريجين الجدد.',
-    photoPath: AppImages.assetsImagesTestImage,
+    photoPath: AppImages.assetsImagesCoursesImageAccountingSoftwareDashboard,
     nameAr: '',
   ),
 ];
