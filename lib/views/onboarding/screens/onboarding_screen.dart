@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../utils/app_text_styles.dart';
 import '../models/onboarding_model.dart';
 import '../widgets/onboarding_action_card.dart';
-
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -97,12 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: Text(
             _items[index].text,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              height: 1.5,
-            ),
+            style: TextStyles.semiBold18Expanded,
           ),
         ),
       ],

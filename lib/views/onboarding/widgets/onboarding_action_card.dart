@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yusur_app/utils/app_color.dart';
 class OnboardingActionCard extends StatelessWidget {
   final int currentIndex;
   final int totalCount;
@@ -17,7 +18,7 @@ class OnboardingActionCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(30, 24, 30, 40),
       decoration: const BoxDecoration(
-        color: Color(0xFFF5F5F5),
+        color:AppColors.backgroundColor,
      borderRadius: BorderRadius.only(
     topLeft: Radius.circular(50),
     topRight: Radius.circular(50),
@@ -39,7 +40,7 @@ class OnboardingActionCard extends StatelessWidget {
             height: 55,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 51, 96, 243),
+                backgroundColor: Theme.of(context).primaryColor,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                 elevation: 0,
               ),
