@@ -15,12 +15,10 @@ class CourseDetailsView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadiusGeometry.circular(10),
+            ClipRRect(
+              borderRadius: BorderRadiusGeometry.circular(10),
 
-                child: Image.asset(course.photoPath!),
-              ),
+              child: Image.asset(course.photoPath!),
             ),
             const SizedBox(height: 20),
 
