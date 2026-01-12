@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:yusur_app/utils/app_color.dart';
 import 'package:yusur_app/views/starting_views/home_view.dart';
 import 'package:yusur_app/views/starting_views/widgets/drawer_menu_view.dart';
 
@@ -20,7 +21,7 @@ class _DrawerViewState extends State<DrawerView> {
       style: DrawerStyle.defaultStyle,
       showShadow: false,
       angle: 0.0,
-      mainScreenScale: 0.2,
+      mainScreenScale: 0.25,
       boxShadow: [
         BoxShadow(
           color: Colors.white.withOpacity(0.3),
@@ -30,8 +31,8 @@ class _DrawerViewState extends State<DrawerView> {
       ],
       isRtl: true,
       mainScreenTapClose: true,
-      slideWidth: MediaQuery.of(context).size.width * 0.60,
-      menuBackgroundColor: const Color(0xFF4A69FF),
+      slideWidth: MediaQuery.of(context).size.width * 0.65,
+      menuBackgroundColor: AppColors.primaryColor,
       controller: controller,
       menuScreen: const DrawerMenuView(),
       mainScreen: const HomeView(),

@@ -1,5 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:yusur_app/utils/app_color.dart';
+import 'package:yusur_app/utils/app_icons.dart';
+import 'package:yusur_app/utils/app_text_styles.dart';
 import 'package:yusur_app/widget/custom_logout_button.dart';
 
 class DrawerMenuView extends StatelessWidget {
@@ -9,7 +12,7 @@ class DrawerMenuView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: const Color(0xFF4A69FF),
+        color: AppColors.primaryColor,
         padding: const EdgeInsets.symmetric(vertical: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -17,14 +20,14 @@ class DrawerMenuView extends StatelessWidget {
             const SizedBox(height: 50),
             DrawerItem(
               title: "الملف الشخصي",
-              icon: Icons.person_outline,
+              icon: MyAppIcons.userCircle,
               onTap: () {},
             ),
             const Divider(color: Colors.white24, thickness: 1, endIndent: 20),
 
             DrawerItem(
               title: "الحجوزات",
-              icon: Icons.shopping_cart_outlined,
+              icon: MyAppIcons.shoppingCartCheck,
               onTap: () {},
             ),
             const Divider(color: Colors.white24, thickness: 1, endIndent: 20),
@@ -40,7 +43,7 @@ class DrawerMenuView extends StatelessWidget {
 
 class DrawerItem extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final Widget icon;
   final VoidCallback onTap;
 
   const DrawerItem({
@@ -57,15 +60,8 @@ class DrawerItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15.0),
         child: ListTile(
-          leading: Icon(icon, color: Colors.white, size: 22),
-          title: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          leading: icon,
+          title: Text(title, style: TextStyles.semiBold18Expanded),
         ),
       ),
     );

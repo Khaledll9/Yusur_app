@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:yusur_app/utils/app_icons.dart';
+import 'package:yusur_app/utils/app_text_styles.dart';
 
 class CustomLogoutButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -9,17 +11,8 @@ class CustomLogoutButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: ListTile(
-        leading: Transform.flip(
-          child: const Icon(Icons.logout, color: Colors.white, size: 28),
-        ),
-        title: const Text(
-          "تسجيل خروج",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        leading: Transform.flip(flipX: true, child: MyAppIcons.logout),
+        title: const Text("تسجيل خروج", style: TextStyles.semiBold18Expanded),
       ),
     );
   }
