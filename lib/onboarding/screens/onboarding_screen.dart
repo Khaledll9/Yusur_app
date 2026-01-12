@@ -103,15 +103,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: Visibility(
         visible: _currentIndex != _items.length - 1,
         child: TextButton(
-          onPressed: () => _controller.jumpToPage(_items.length - 1),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextButton(
-              onPressed: () => context.goNamed(AppRoutes.loginView),
-              child: const Text(
-                "تخطي",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
+          onPressed: () => context.goNamed(AppRoutes.loginView),
+          child: const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              "تخطي",
+              style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
         ),

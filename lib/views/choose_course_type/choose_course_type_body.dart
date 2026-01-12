@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'listtile_component.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../routes/app_routes.dart';
 import './widgets/custom_container.dart';
+import 'listtile_component.dart';
 
 class ChooseCourseTypeBody extends StatelessWidget {
   final bool isSelected;
@@ -19,15 +22,17 @@ class ChooseCourseTypeBody extends StatelessWidget {
                 // just to try an image
                 image: Image.asset("assets/images/logo_foreground.png"),
                 title: "الدورات والدبلومات التي يقدمهاالمعهد",
+                onTap: () => context.pushNamed(AppRoutes.courseView),
               ),
-              const CustomContainer(
+              CustomContainer(
                 //image: Image.asset("assets/images/logo_foreground.png"),
                 title: "الدورات والدبلومات الحالية",
+                onTap: () => context.pushNamed(AppRoutes.courseView),
               ),
             ],
           ),
           const SizedBox(height: 62.0),
-          if (isSelected) const ListTileComponent(),
+          if (!isSelected) const ListTileComponent(),
         ],
       ),
     );

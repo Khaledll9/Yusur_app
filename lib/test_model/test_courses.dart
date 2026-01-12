@@ -10,7 +10,7 @@ final List<Course> allCourses = const [
     titleAr: 'دبلوم الرخصة الدولية',
     description:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImageTestImage,
+    photoPath: AppImages.assetsImagesTestImage,
     nameAr: '',
   ),
   Course(
@@ -32,7 +32,7 @@ final List<Course> allCourses = const [
     titleAr: 'دبلوم تطوير الويب',
     description:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImageTestImage,
+    photoPath: AppImages.assetsImagesTestImage,
     nameAr: '',
   ),
   Course(
@@ -43,7 +43,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة برنامج PhotoShope ',
     description:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImageTestImage,
+    photoPath: AppImages.assetsImagesTestImage,
     nameAr: '',
   ),
   Course(
@@ -54,7 +54,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة برنامج Illustrator ',
     description:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImageTestImage,
+    photoPath: AppImages.assetsImagesTestImage,
     nameAr: '',
   ),
 
@@ -66,7 +66,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة تطوير الويب',
     description:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImageTestImage,
+    photoPath: AppImages.assetsImagesTestImage,
     nameAr: '',
   ),
   Course(
@@ -77,7 +77,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة تطوير تطبيقات الهاتف',
     description:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImageTestImage,
+    photoPath: AppImages.assetsImagesTestImage,
     nameAr: '',
   ),
   Course(
@@ -88,7 +88,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة تطوير تطبيقات سطح المكتب',
     description:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImageTestImage,
+    photoPath: AppImages.assetsImagesTestImage,
     nameAr: '',
   ),
   Course(
@@ -99,7 +99,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة صيانة الهاتف',
     description:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImageTestImage,
+    photoPath: AppImages.assetsImagesTestImage,
     nameAr: '',
   ),
   Course(
@@ -110,7 +110,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة تعلم الانجليزية للعمل',
     description:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImageTestImage,
+    photoPath: AppImages.assetsImagesTestImage,
     nameAr: '',
   ),
   Course(
@@ -132,7 +132,7 @@ final List<Course> allCourses = const [
     titleAr: 'دورة تعلم النظام المحاسبي',
     description:
         'تؤهل لامتلاك المهارات الأساسية في استخدام الحاسوب وتطبيقاته. تتضمن الدورة...',
-    photoPath: AppImages.assetsImageTestImage,
+    photoPath: AppImages.assetsImagesTestImage,
     nameAr: '',
   ),
 ];
