@@ -12,7 +12,7 @@ class CustomLogoutButton extends StatelessWidget {
       onTap: onTap,
       child: ListTile(
         leading: Transform.flip(flipX: true, child: MyAppIcons.logout),
-        title: const Text("تسجيل خروج", style: TextStyles.semiBold18Expanded),
+        title: const Text("تسجيل خروج", style: TextStyles.regular16White),
       ),
     );
   }

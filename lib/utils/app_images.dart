@@ -1,12 +1,14 @@
+// ignore_for_file: prefer_single_quotes
 class AppImages {
+  AppImages._();
+  
   /// Assets for assetsImagesAppIcon
   /// assets/images/app_icon.png
   static const String assetsImagesAppIcon = "assets/images/app_icon.png";
 
   /// Assets for assetsImagesAppIconWhite
   /// assets/images/app_icon_white.png
-  static const String assetsImagesAppIconWhite =
-      "assets/images/app_icon_white.png";
+  static const String assetsImagesAppIconWhite = "assets/images/app_icon_white.png";
 
   /// Assets for assetsImagesBackground1
   /// assets/images/background1.jpg
@@ -46,8 +48,7 @@ class AppImages {
 
   /// Assets for assetsImagesLogoForeground
   /// assets/images/logo_foreground.png
-  static const String assetsImagesLogoForeground =
-      "assets/images/logo_foreground.png";
+  static const String assetsImagesLogoForeground = "assets/images/logo_foreground.png";
 
   /// Assets for assetsImagesRedHeart
   /// assets/images/red_heart.svg
@@ -59,10 +60,9 @@ class AppImages {
 
   /// Assets for assetsImagesShoppingCart
   /// assets/images/shopping_cart.svg
-  static const String assetsImagesShoppingCart =
-      "assets/images/shopping_cart.svg";
+  static const String assetsImagesShoppingCart = "assets/images/shopping_cart.svg";
 
-  /// Assets for assetsImageTestImage
+  /// Assets for assetsImagesTestImage
   /// assets/images/test_image.jpg
   static const String assetsImagesTestImage = "assets/images/test_image.jpg";
 
@@ -73,6 +73,5 @@ class AppImages {
   /// Assets for assetsImagesWifiOff
   /// assets/images/wifi-off.png
   static const String assetsImagesWifiOff = "assets/images/wifi-off.png";
-
-  AppImages._();
 }
+

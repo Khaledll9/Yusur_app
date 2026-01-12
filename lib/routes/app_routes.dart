@@ -7,11 +7,12 @@ import 'package:yusur_app/views/add_and_edit/edit_course_view.dart';
 import 'package:yusur_app/views/choose_course_type/choose_course_view.dart';
 import 'package:yusur_app/views/starting_views/course_view/course_details_view.dart';
 import 'package:yusur_app/views/starting_views/drawer_view.dart';
+import 'package:yusur_app/views/starting_views/profile_view.dart';
+import 'package:yusur_app/views/starting_views/widgets/booking_view.dart';
 
 import '../views/add_and_edit/add_course_view.dart';
 import '../views/add_and_edit/add_diploma_view.dart';
 import '../views/starting_views/course_view/course_view.dart';
-import '../views/starting_views/home_view.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
@@ -19,7 +20,7 @@ class AppRouter {
       GoRoute(
         name: AppRoutes.onBoardingView,
         path: '/',
-        builder: (context, state) => const DrawerView(),
+        builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
         name: AppRoutes.loginView,
@@ -32,11 +33,21 @@ class AppRouter {
         builder: (context, state) => const RegisterView(),
       ),
       GoRoute(
+        name: AppRoutes.profileView,
+        path: '/profile',
+        builder: (context, state) => const ProfileView(),
+      ),
+      GoRoute(
         name: AppRoutes.homeView,
         path: '/home',
-        builder: (context, state) => const HomeView(),
+        builder: (context, state) => const DrawerView(),
 
         routes: [
+          GoRoute(
+            name: AppRoutes.bookingView,
+            path: '/booking',
+            builder: (context, state) => const BookingView(),
+          ),
           GoRoute(
             name: AppRoutes.chooseCourseTypeView,
             path: '/chooseCourseType',
@@ -87,6 +98,8 @@ class AppRoutes {
   static const String registerView = 'register';
   static const String homeView = 'home';
   static const String courseView = 'course';
+  static const String profileView = 'profile';
+  static const String bookingView = 'booking';
   static const String editCourseView = 'editCourse';
   static const String courseDetailView = 'courseDetail';
   static const String chooseCourseTypeView = 'chooseCourseType';

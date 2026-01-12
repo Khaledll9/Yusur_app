@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:yusur_app/routes/app_routes.dart';
 import 'package:yusur_app/utils/app_color.dart';
 import 'package:yusur_app/utils/app_icons.dart';
 import 'package:yusur_app/utils/app_text_styles.dart';
@@ -21,19 +23,27 @@ class DrawerMenuView extends StatelessWidget {
             DrawerItem(
               title: "الملف الشخصي",
               icon: MyAppIcons.userCircle,
-              onTap: () {},
+              onTap: () {
+                context.goNamed(AppRoutes.profileView);
+              },
             ),
             const Divider(color: Colors.white24, thickness: 1, endIndent: 20),
 
             DrawerItem(
               title: "الحجوزات",
               icon: MyAppIcons.shoppingCartCheck,
-              onTap: () {},
+              onTap: () {
+                context.pushNamed(AppRoutes.bookingView);
+              },
             ),
             const Divider(color: Colors.white24, thickness: 1, endIndent: 20),
 
             const Spacer(),
-            CustomLogoutButton(onTap: () {}),
+            CustomLogoutButton(
+              onTap: () {
+                context.goNamed(AppRoutes.loginView);
+              },
+            ),
           ],
         ),
       ),
@@ -61,7 +71,7 @@ class DrawerItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 15.0),
         child: ListTile(
           leading: icon,
-          title: Text(title, style: TextStyles.semiBold18Expanded),
+          title: Text(title, style: TextStyles.regular16White),
         ),
       ),
     );
