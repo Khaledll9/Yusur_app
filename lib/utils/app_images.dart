@@ -76,8 +76,4 @@ class AppImages {
   /// Assets for assetsImagesWifiOff
   /// assets/images/wifi-off.png
   static const String assetsImagesWifiOff = "assets/images/wifi-off.png";
-
-  //courses images
-  static const String accountingDiploma =
-      "assets/images/courses-image/accounting_diploma.jpeg";
 }
