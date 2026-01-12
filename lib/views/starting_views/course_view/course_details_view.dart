@@ -16,7 +16,7 @@ class CourseDetailsView extends StatelessWidget {
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadiusGeometry.circular(10),
+              borderRadius: BorderRadiusGeometry.circular(15),
 
               child: Image.asset(course.photoPath!),
             ),
