@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
 class Department extends Equatable {
-  final String id;
+  final int id;
   final String nameAr;
   final String? nameEn;
   final String? description;
-  final String instituteId;
-  final String? isActive;
+  final int instituteId;
+  final int? isActive;
   final String? createdAt;
   final String? updatedAt;
 
@@ -22,12 +22,12 @@ class Department extends Equatable {
   });
 
   factory Department.fromJson(Map<String, dynamic> json) => Department(
-    id: (json['id'] as String?)!,
+    id: (json['id'] as int?)!,
     nameAr: (json['name_ar'] as String?)!,
     nameEn: json['name_en'] as String?,
     description: json['description'] as String?,
-    instituteId: (json['institute_id'] as String?)!,
-    isActive: json['is_active'] as String?,
+    instituteId: (json['institute_id'] as int?)!,
+    isActive: json['is_active'] as int?,
     createdAt: json['created_at'] as String?,
     updatedAt: json['updated_at'] as String?,
   );
@@ -47,12 +47,12 @@ class Department extends Equatable {
   }
 
   Department copyWith({
-    String? id,
+    int? id,
     String? nameAr,
     String? nameEn,
     String? description,
-    String? instituteId,
-    String? isActive,
+    int? instituteId,
+    int? isActive,
     String? createdAt,
     String? updatedAt,
   }) {

@@ -1,20 +1,20 @@
 import 'package:equatable/equatable.dart';
 
 class Course extends Equatable {
-  final String id;
+  final int id;
   final String code;
   final String titleAr;
   final String? titleEn;
   final String nameAr;
   final String? nameEn;
   final String? description;
-  final String? price;
+  final double? price;
   final String? photoPath;
   final int departmentId;
-  final String? isOpen;
-  final String? isActive;
-  final String? createdBy;
-  final String? updatedBy;
+  final int? isOpen;
+  final int? isActive;
+  final int? createdBy;
+  final int? updatedBy;
   final String? createdAt;
   final String? updatedAt;
 
@@ -38,20 +38,20 @@ class Course extends Equatable {
   });
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
-    id: (json['id'] as String?)!,
+    id: (json['id'] as int?)!,
     code: (json['code'] as String?)!,
     titleAr: (json['title_ar'] as String?)!,
     titleEn: json['title_en'] as String?,
     nameAr: (json['name_ar'] as String?)!,
     nameEn: json['name_en'] as String?,
     description: json['description'] as String?,
-    price: json['price'] as String?,
+    price: json['price'] as double?,
     photoPath: json['photo_path'] as String?,
     departmentId: (json['department_id'] as int?)!,
-    isOpen: json['is_open'] as String?,
-    isActive: json['is_active'] as String?,
-    createdBy: json['created_by'] as String?,
-    updatedBy: json['updated_by'] as String?,
+    isOpen: json['is_open'] as int?,
+    isActive: json['is_active'] as int?,
+    createdBy: json['created_by'] as int?,
+    updatedBy: json['updated_by'] as int?,
     createdAt: json['created_at'] as String?,
     updatedAt: json['updated_at'] as String?,
   );
@@ -79,20 +79,20 @@ class Course extends Equatable {
   }
 
   Course copyWith({
-    String? id,
+    int? id,
     String? code,
     String? titleAr,
     String? titleEn,
     String? nameAr,
     String? nameEn,
     String? description,
-    String? price,
+    double? price,
     String? photoPath,
     int? departmentId,
-    String? isOpen,
-    String? isActive,
-    String? createdBy,
-    String? updatedBy,
+    int? isOpen,
+    int? isActive,
+    int? createdBy,
+    int? updatedBy,
     String? createdAt,
     String? updatedAt,
   }) {

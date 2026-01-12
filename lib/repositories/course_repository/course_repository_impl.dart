@@ -1,370 +1,262 @@
-import '../../models/course_model.dart';
-import '../../network/exceptions.dart';
-import '../../services/course_service/course_service.dart';
+import 'package:dartz/dartz.dart' show Either, Right, Left;
+
+import '../../api/api_consumer.dart';
+import '../../api/errors/exceptions.dart';
+import '../../models/course_model.dart' show Course;
 import 'course_repository.dart';
 
 class CourseRepositoryImpl implements CourseRepository {
-  final CourseService _courseService;
-  final List<Course> _cachedCourses = [];
+  final ApiConsumer _apiConsumer;
 
-  CourseRepositoryImpl({required CourseService courseService})
-    : _courseService = courseService;
+  CourseRepositoryImpl({required ApiConsumer apiConsumer})
+    : _apiConsumer = apiConsumer;
 
-  // ========== CACHE OPERATIONS ==========
-
+  // POST: Create course
   @override
-  Future<void> cacheCourses(List<Course> courses) async {
-    // Remove old courses not in new list
-    final newCourseIds = courses.map((c) => c.id).toSet();
-    _cachedCourses.removeWhere((course) => !newCourseIds.contains(course.id));
-
-    // Update or add courses
-    for (final course in courses) {
-      final index = _cachedCourses.indexWhere((c) => c.id == course.id);
-      if (index != -1) {
-        _cachedCourses[index] = course;
-      } else {
-        _cachedCourses.add(course);
-      }
-    }
-  }
-
-  // ========== CRUD OPERATIONS ==========
-
-  @override
-  Future<Course> createCourse(Course course) async {
-    final createdCourse = await _courseService.createCourse(course);
-    _cachedCourses.add(createdCourse);
-    return createdCourse;
-  }
-
-  @override
-  Future<void> deleteCourse(String id) async {
-    await _courseService.deleteCourse(id);
-    _cachedCourses.removeWhere((course) => course.id == id);
-  }
-
-  @override
-  Future<List<Course>> filterCourses({
-    String? departmentId,
-    bool? isActive,
-    bool? isOpen,
-    String? searchQuery,
-  }) async {
-    // Try API first if we have complex filters
-    if (departmentId != null || isActive != null || isOpen != null) {
-      try {
-        return await getCoursesByMultipleFilters(
-          departmentId: departmentId,
-          isActive: isActive,
-          isOpen: isOpen,
-        );
-      } catch (e) {
-        // Fall through to local filtering
-      }
-    }
-
-    // Local filtering
-    List<Course> filtered = _cachedCourses;
-
-    // Apply department filter
-    if (departmentId != null) {
-      filtered = filtered.where((course) {
-        return course.departmentId == departmentId;
-      }).toList();
-    }
-
-    // Apply active status filter
-    if (isActive != null) {
-      filtered = filtered.where((course) {
-        final isCourseActive =
-            course.isActive == '1' || course.isActive == 'true';
-        return isCourseActive == isActive;
-      }).toList();
-    }
-
-    // Apply open status filter
-    if (isOpen != null) {
-      filtered = filtered.where((course) {
-        final isCourseOpen = course.isOpen == '1' || course.isOpen == 'true';
-        return isCourseOpen == isOpen;
-      }).toList();
-    }
-
-    // Apply search filter
-    if (searchQuery != null && searchQuery.isNotEmpty) {
-      filtered = filtered.where((course) {
-        final titleAr = course.titleAr.toLowerCase();
-        final titleEn = course.titleEn?.toLowerCase() ?? '';
-        final nameAr = course.nameAr.toLowerCase();
-        final nameEn = course.nameEn?.toLowerCase() ?? '';
-        final code = course.code.toLowerCase();
-        final query = searchQuery.toLowerCase();
-
-        return titleAr.contains(query) ||
-            titleEn.contains(query) ||
-            nameAr.contains(query) ||
-            nameEn.contains(query) ||
-            code.contains(query);
-      }).toList();
-    }
-
-    return filtered;
-  }
-
-  @override
-  Future<List<Course>> getActiveCourses() async {
+  Future<Either<String, Course>> createCourse(
+    CreateCourseRequest request,
+  ) async {
     try {
-      final courses = await _courseService.getActiveCourses();
-      await cacheCourses(courses);
-      return courses;
-    } catch (e) {
-      // Fallback to cache filter
-      return _cachedCourses.where((course) {
-        return course.isActive == '1' || course.isActive == 'true';
-      }).toList();
-    }
-  }
-
-  // ========== GET OPERATIONS ==========
-
-  @override
-  Future<List<Course>> getAllCourses() async {
-    try {
-      final courses = await _courseService.getAllCourses();
-      await cacheCourses(courses);
-      return courses;
-    } catch (e) {
-      // Fallback to cache if network fails
-      if (_cachedCourses.isNotEmpty) {
-        return _cachedCourses;
-      }
-      rethrow;
-    }
-  }
-
-  @override
-  Future<List<Course>> getCachedCourses() async {
-    return List.from(_cachedCourses);
-  }
-
-  @override
-  Future<List<Course>> getCachedCoursesByDepartment(String departmentId) async {
-    return _cachedCourses.where((course) {
-      return course.departmentId == departmentId;
-    }).toList();
-  }
-
-  @override
-  Future<Course?> getCourseByCode(String code) async {
-    try {
-      // Search in API first
-      final courses = await _courseService.searchCourses(code);
-
-      // Find course by exact code match
-      final course = courses.firstWhere(
-        (c) => c.code.toLowerCase() == code.toLowerCase(),
-        orElse: () => throw NotFoundException('Course not found'),
+      final response = await _apiConsumer.post(
+        'courses',
+        data: request.toJson(),
       );
-
-      // Update cache
-      final index = _cachedCourses.indexWhere((c) => c.id == course.id);
-      if (index != -1) {
-        _cachedCourses[index] = course;
-      } else {
-        _cachedCourses.add(course);
-      }
-
-      return course;
+      final course = Course.fromJson(response['data']);
+      return Right(course);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage);
     } catch (e) {
-      // Fallback to cache
-      try {
-        return _cachedCourses.firstWhere(
-          (c) => c.code.toLowerCase() == code.toLowerCase(),
-        );
-      } catch (_) {
-        return null;
-      }
+      return const Left('Failed to create course');
     }
   }
 
   @override
-  Future<Course> getCourseById(String id) async {
+  Future<Either<String, void>> deleteCourse(int id) async {
     try {
-      return await _courseService.getCourseById(id);
+      await _apiConsumer.delete('courses/$id');
+      return const Right(null);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage);
     } catch (e) {
-      // Try to find in cache
-      final cachedCourse = _cachedCourses.firstWhere(
-        (course) => course.id == id,
-        orElse: () => throw NotFoundException('Course not found'),
+      return const Left('Failed to delete course');
+    }
+  }
+
+  // GET: Get course by ID
+  @override
+  Future<Either<String, Course>> getCourseById(int id) async {
+    try {
+      final response = await _apiConsumer.get('courses/$id');
+      final course = Course.fromJson(response['data']);
+      return Right(course);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage);
+    }
+  }
+
+  @override
+  Future<Either<String, List<Course>>> getCourses() async {
+    try {
+      final response = await _apiConsumer.get('courses');
+      final List<Course> courses = (response['data'] as List)
+          .map((json) => Course.fromJson(json))
+          .toList();
+      return Right(courses);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage);
+    } catch (e) {
+      return const Left('Failed to load courses');
+    }
+  }
+
+  @override
+  Future<Either<String, List<Course>>> getCoursesByDepartment(
+    int departmentId,
+  ) async {
+    try {
+      final response = await _apiConsumer.get(
+        'courses',
+        queryParameters: {'department_id': departmentId},
       );
-      return cachedCourse;
-    }
-  }
-
-  @override
-  Future<List<Course>> getCoursesByDepartment(String departmentId) async {
-    try {
-      final courses = await _courseService.getCoursesByDepartment(departmentId);
-
-      // Update cache with these courses
-      for (final course in courses) {
-        final index = _cachedCourses.indexWhere((c) => c.id == course.id);
-        if (index != -1) {
-          _cachedCourses[index] = course;
-        } else {
-          _cachedCourses.add(course);
-        }
-      }
-
-      return courses;
+      final List<Course> courses = (response['data'] as List)
+          .map((json) => Course.fromJson(json))
+          .toList();
+      return Right(courses);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage);
     } catch (e) {
-      // Fallback to local filter
-      return getCachedCoursesByDepartment(departmentId);
+      return const Left('Failed to load department courses');
+    }
+  }
+
+  // GET: Search courses
+  @override
+  Future<Either<String, List<Course>>> searchCourses(String query) async {
+    try {
+      final allCoursesResult = await getCourses();
+      return allCoursesResult.fold((error) => Left(error), (courses) {
+        final filteredCourses = courses.where((course) {
+          final searchLower = query.toLowerCase();
+          return course.code.toLowerCase().contains(searchLower) ||
+              course.titleAr.toLowerCase().contains(searchLower) ||
+              (course.titleEn?.toLowerCase().contains(searchLower) ?? false) ||
+              course.nameAr.toLowerCase().contains(searchLower) ||
+              (course.nameEn?.toLowerCase().contains(searchLower) ?? false) ||
+              (course.description?.toLowerCase().contains(searchLower) ??
+                  false);
+        }).toList();
+        return Right(filteredCourses);
+      });
+    } catch (e) {
+      return const Left('Search failed');
     }
   }
 
   @override
-  Future<List<Course>> getCoursesByMultipleFilters({
-    String? departmentId,
-    bool? isActive,
-    bool? isOpen,
-  }) async {
+  Future<Either<String, void>> toggleCourseOpenStatus(
+    int id,
+    bool isOpen,
+  ) async {
     try {
-      final courses = await _courseService.getCoursesByStatus(
-        isActive: isActive,
-        isOpen: isOpen,
-        departmentId: departmentId,
+      await _apiConsumer.patch(
+        'courses/$id',
+        data: {'is_open': isOpen ? 1 : 0},
       );
-
-      // Update cache
-      for (final course in courses) {
-        final index = _cachedCourses.indexWhere((c) => c.id == course.id);
-        if (index != -1) {
-          _cachedCourses[index] = course;
-        } else {
-          _cachedCourses.add(course);
-        }
-      }
-
-      return courses;
+      return const Right(null);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage);
     } catch (e) {
-      // Fallback to local filtering
-      return filterCourses(
-        departmentId: departmentId,
-        isActive: isActive,
-        isOpen: isOpen,
+      return const Left('Failed to update course open status');
+    }
+  }
+
+  @override
+  Future<Either<String, void>> toggleCourseStatus(int id, bool isActive) async {
+    try {
+      await _apiConsumer.patch(
+        'courses/$id',
+        data: {'is_active': isActive ? 1 : 0},
       );
-    }
-  }
-
-  @override
-  Future<List<Course>> getOpenCourses() async {
-    try {
-      final courses = await _courseService.getOpenCourses();
-
-      // Update cache
-      for (final course in courses) {
-        final index = _cachedCourses.indexWhere((c) => c.id == course.id);
-        if (index != -1) {
-          _cachedCourses[index] = course;
-        } else {
-          _cachedCourses.add(course);
-        }
-      }
-
-      return courses;
+      return const Right(null);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage);
     } catch (e) {
-      // Fallback to cache
-      return _cachedCourses.where((course) {
-        return course.isOpen == '1' || course.isOpen == 'true';
-      }).toList();
+      return const Left('Failed to update course status');
     }
   }
 
   @override
-  Future<List<Course>> searchCourses(String query) async {
-    if (query.isEmpty) return getAllCourses();
-
+  Future<Either<String, Course>> updateCourse(
+    UpdateCourseRequest request,
+  ) async {
     try {
-      final courses = await _courseService.searchCourses(query);
-
-      // Update cache with search results
-      for (final course in courses) {
-        final index = _cachedCourses.indexWhere((c) => c.id == course.id);
-        if (index != -1) {
-          _cachedCourses[index] = course;
-        } else {
-          _cachedCourses.add(course);
-        }
-      }
-
-      return courses;
-    } catch (e) {
-      // Fallback to local search
-      return _cachedCourses.where((course) {
-        final titleAr = course.titleAr.toLowerCase();
-        final titleEn = course.titleEn?.toLowerCase() ?? '';
-        final nameAr = course.nameAr.toLowerCase();
-        final nameEn = course.nameEn?.toLowerCase() ?? '';
-        final code = course.code.toLowerCase();
-        final searchQuery = query.toLowerCase();
-
-        return titleAr.contains(searchQuery) ||
-            titleEn.contains(searchQuery) ||
-            nameAr.contains(searchQuery) ||
-            nameEn.contains(searchQuery) ||
-            code.contains(searchQuery);
-      }).toList();
-    }
-  }
-
-  @override
-  Future<void> toggleCourseOpenStatus(String id, bool isOpen) async {
-    try {
-      await _courseService.toggleCourseOpenStatus(id, isOpen);
-
-      final index = _cachedCourses.indexWhere((c) => c.id == id);
-      if (index != -1) {
-        _cachedCourses[index] = _cachedCourses[index].copyWith(
-          isOpen: isOpen ? '1' : '0',
-        );
-      }
-    } catch (e) {
-      // Update locally even if API fails for optimistic UI
-      final index = _cachedCourses.indexWhere((c) => c.id == id);
-      if (index != -1) {
-        _cachedCourses[index] = _cachedCourses[index].copyWith(
-          isOpen: isOpen ? '1' : '0',
-        );
-      }
-      rethrow;
-    }
-  }
-
-  @override
-  Future<Course> updateCourse(String id, Course course) async {
-    final updatedCourse = await _courseService.updateCourse(id, course);
-
-    final index = _cachedCourses.indexWhere((c) => c.id == id);
-    if (index != -1) {
-      _cachedCourses[index] = updatedCourse;
-    } else {
-      _cachedCourses.add(updatedCourse);
-    }
-
-    return updatedCourse;
-  }
-
-  @override
-  Future<void> updateCourseStatus(String id, bool isActive) async {
-    await _courseService.updateCourseStatus(id, isActive);
-
-    final index = _cachedCourses.indexWhere((c) => c.id == id);
-    if (index != -1) {
-      _cachedCourses[index] = _cachedCourses[index].copyWith(
-        isActive: isActive ? '1' : '0',
+      final response = await _apiConsumer.patch(
+        'courses/${request.id}',
+        data: request.toJson(),
       );
+      final course = Course.fromJson(response['data']);
+      return Right(course);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage);
+    } catch (e) {
+      return const Left('Failed to update course');
     }
+  }
+}
+
+// Request DTOs for create and update
+class CreateCourseRequest {
+  final String code;
+  final String titleAr;
+  final String? titleEn;
+  final String nameAr;
+  final String? nameEn;
+  final String? description;
+  final double? price;
+  final String? photoPath;
+  final int departmentId;
+  final int isOpen;
+  final int isActive;
+  final int? createdBy;
+
+  CreateCourseRequest({
+    required this.code,
+    required this.titleAr,
+    this.titleEn,
+    required this.nameAr,
+    this.nameEn,
+    this.description,
+    this.price,
+    this.photoPath,
+    required this.departmentId,
+    this.isOpen = 1,
+    this.isActive = 1,
+    this.createdBy,
+  });
+
+  Map<String, dynamic> toJson() => {
+    'code': code,
+    'title_ar': titleAr,
+    if (titleEn != null) 'title_en': titleEn,
+    'name_ar': nameAr,
+    if (nameEn != null) 'name_en': nameEn,
+    if (description != null) 'description': description,
+    if (price != null) 'price': price,
+    if (photoPath != null) 'photo_path': photoPath,
+    'department_id': departmentId,
+    'is_open': isOpen,
+    'is_active': isActive,
+    if (createdBy != null) 'created_by': createdBy,
+  };
+}
+
+class UpdateCourseRequest {
+  final int id;
+  final String? code;
+  final String? titleAr;
+  final String? titleEn;
+  final String? nameAr;
+  final String? nameEn;
+  final String? description;
+  final double? price;
+  final String? photoPath;
+  final int? departmentId;
+  final int? isOpen;
+  final int? isActive;
+  final int? updatedBy;
+
+  UpdateCourseRequest({
+    required this.id,
+    this.code,
+    this.titleAr,
+    this.titleEn,
+    this.nameAr,
+    this.nameEn,
+    this.description,
+    this.price,
+    this.photoPath,
+    this.departmentId,
+    this.isOpen,
+    this.isActive,
+    this.updatedBy,
+  });
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+
+    if (code != null) map['code'] = code;
+    if (titleAr != null) map['title_ar'] = titleAr;
+    if (titleEn != null) map['title_en'] = titleEn;
+    if (nameAr != null) map['name_ar'] = nameAr;
+    if (nameEn != null) map['name_en'] = nameEn;
+    if (description != null) map['description'] = description;
+    if (price != null) map['price'] = price;
+    if (photoPath != null) map['photo_path'] = photoPath;
+    if (departmentId != null) map['department_id'] = departmentId;
+    if (isOpen != null) map['is_open'] = isOpen;
+    if (isActive != null) map['is_active'] = isActive;
+    if (updatedBy != null) map['updated_by'] = updatedBy;
+
+    return map;
   }
 }

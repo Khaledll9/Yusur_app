@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show SystemChrome, SystemUiOverlayStyle;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:yusur_app/cache/shared_preferences_singleton.dart' show Prefs;
 import 'package:yusur_app/generated/l10n.dart';
@@ -12,7 +13,9 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   Prefs.init();
-
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+  );
   runApp(const YusurApp());
 }
 

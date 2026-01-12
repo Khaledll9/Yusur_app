@@ -1,33 +1,25 @@
+import 'package:dartz/dartz.dart';
+
 import '../../models/course_model.dart';
+import 'course_repository_impl.dart';
 
 abstract class CourseRepository {
-  Future<void> cacheCourses(List<Course> courses);
-  Future<Course> createCourse(Course course);
-  Future<void> deleteCourse(String id);
-  Future<List<Course>> filterCourses({
-    String? departmentId,
-    bool? isActive,
-    bool? isOpen,
-    String? searchQuery,
-  });
-  Future<List<Course>> getActiveCourses();
+  // POST Operations
+  Future<Either<String, Course>> createCourse(CreateCourseRequest request);
+  // DELETE Operations
+  Future<Either<String, void>> deleteCourse(int id);
+  Future<Either<String, Course>> getCourseById(int id);
+  // GET Operations
+  Future<Either<String, List<Course>>> getCourses();
 
-  Future<List<Course>> getAllCourses();
-  Future<List<Course>> getCachedCourses();
-  Future<List<Course>> getCachedCoursesByDepartment(String departmentId);
-  Future<Course?> getCourseByCode(String code);
+  Future<Either<String, List<Course>>> getCoursesByDepartment(int departmentId);
 
-  Future<Course> getCourseById(String id);
-  Future<List<Course>> getCoursesByDepartment(String departmentId);
+  Future<Either<String, List<Course>>> searchCourses(String query);
 
-  Future<List<Course>> getCoursesByMultipleFilters({
-    String? departmentId,
-    bool? isActive,
-    bool? isOpen,
-  });
-  Future<List<Course>> getOpenCourses();
-  Future<List<Course>> searchCourses(String query);
-  Future<void> toggleCourseOpenStatus(String id, bool isOpen);
-  Future<Course> updateCourse(String id, Course course);
-  Future<void> updateCourseStatus(String id, bool isActive);
+  Future<Either<String, void>> toggleCourseOpenStatus(int id, bool isActive);
+
+  // Utility methods
+  Future<Either<String, void>> toggleCourseStatus(int id, bool isActive);
+  // PATCH Operations
+  Future<Either<String, Course>> updateCourse(UpdateCourseRequest request);
 }

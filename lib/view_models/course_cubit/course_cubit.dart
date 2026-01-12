@@ -1,398 +1,366 @@
-// lib/features/course/presentation/cubit/course_cubit.dart
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show Cubit;
 
 import '../../models/course_model.dart';
 import '../../repositories/course_repository/course_repository.dart';
+import '../../repositories/course_repository/course_repository_impl.dart';
 import 'course_state.dart';
 
 class CourseCubit extends Cubit<CourseState> {
   final CourseRepository _repository;
-  List<Course> _allCourses = [];
 
   CourseCubit({required CourseRepository repository})
     : _repository = repository,
-      super(CourseState.initial()) {
-    _loadFromCache();
+      super(const CourseInitial());
+
+  int get activeCourseCount {
+    final currentState = state;
+    return currentState is CourseListLoaded
+        ? currentState.activeCourses.length
+        : 0;
   }
 
-  // Helper getters
-  List<Course> get activeCourses => state.courses.where((c) {
-    return c.isActive == '1' || c.isActive == 'true';
-  }).toList();
+  int get courseCount {
+    final currentState = state;
+    return currentState is CourseListLoaded ? currentState.courses.length : 0;
+  }
 
-  bool get hasActiveCourses => activeCourses.isNotEmpty;
+  bool get hasFilter {
+    final currentState = state;
+    return currentState is CourseListLoaded && currentState.hasFilter;
+  }
 
-  bool get hasOpenCourses => openCourses.isNotEmpty;
+  // Utility getters
+  bool get isSearching {
+    final currentState = state;
+    return currentState is CourseListLoaded && currentState.isSearching;
+  }
 
-  List<Course> get openCourses => state.courses.where((c) {
-    return c.isOpen == '1' || c.isOpen == 'true';
-  }).toList();
+  int get openCourseCount {
+    final currentState = state;
+    return currentState is CourseListLoaded
+        ? currentState.openCourses.length
+        : 0;
+  }
 
-  // Filter operations
-  void applyFilters({String? departmentId, bool? isActive, bool? isOpen}) {
-    // If we have multiple filters, load from API
-    if ((departmentId != null && (isActive != null || isOpen != null)) ||
-        (isActive != null && isOpen != null)) {
-      loadCoursesWithFilters(
-        departmentId: departmentId,
-        isActive: isActive,
-        isOpen: isOpen,
-      );
-    } else {
-      // Otherwise use local filtering
-      emit(
-        state.copyWith(
-          departmentId: departmentId,
-          isActive: isActive,
-          isOpen: isOpen,
-          courses: _applyFilters(_allCourses),
-        ),
-      );
+  void clearDepartmentFilter() {
+    final currentState = state;
+
+    if (currentState is CourseListLoaded && currentState.hasFilter) {
+      loadCourses();
     }
-  }
-
-  void clearError() {
-    if (state.hasError) {
-      emit(state.copyWith(error: null));
-    }
-  }
-
-  void clearFilters() {
-    emit(
-      state.copyWith(
-        departmentId: null,
-        isActive: null,
-        isOpen: null,
-        courses: _allCourses,
-      ),
-    );
   }
 
   void clearSearch() {
-    emit(state.copyWith(courses: _allCourses, searchQuery: ''));
-  }
+    final currentState = state;
 
-  void clearSelection() {
-    emit(state.copyWith(selectedCourse: null));
-  }
-
-  // CRUD operations
-  Future<void> createCourse(Course course) async {
-    try {
-      emit(state.copyWith(isCreating: true, error: null));
-
-      final createdCourse = await _repository.createCourse(course);
-      _allCourses.insert(0, createdCourse);
-
-      emit(
-        state.copyWith(courses: _applyFilters(_allCourses), isCreating: false),
-      );
-    } catch (e) {
-      emit(state.copyWith(error: e.toString(), isCreating: false));
-      rethrow;
-    }
-  }
-
-  Future<void> deleteCourse(String id) async {
-    try {
-      emit(state.copyWith(isDeleting: true, error: null));
-
-      await _repository.deleteCourse(id);
-      _allCourses.removeWhere((course) => course.id == id);
-
-      emit(
-        state.copyWith(courses: _applyFilters(_allCourses), isDeleting: false),
-      );
-    } catch (e) {
-      emit(state.copyWith(error: e.toString(), isDeleting: false));
-      rethrow;
-    }
-  }
-
-  Future<void> getCourseByCode(String code) async {
-    try {
-      emit(state.copyWith(isLoading: true, error: null));
-
-      final course = await _repository.getCourseByCode(code);
-
-      if (course == null) {
-        throw Exception('Course not found with code: $code');
+    if (currentState is CourseListLoaded) {
+      if (currentState.hasSearchQuery || currentState.hasFilter) {
+        loadCourses();
       }
-
-      emit(state.copyWith(selectedCourse: course, isLoading: false));
-    } catch (e) {
-      emit(state.copyWith(error: e.toString(), isLoading: false));
     }
   }
 
-  Future<void> loadActiveCourses() async {
-    try {
-      emit(state.copyWith(isLoading: true, error: null));
+  Future<void> createCourse(CreateCourseRequest request) async {
+    final currentState = state;
 
-      final courses = await _repository.getActiveCourses();
-      _allCourses = courses;
+    emit(
+      const CourseOperationLoading(operationType: CourseOperationType.create),
+    );
 
-      emit(state.copyWith(courses: courses, isLoading: false, isActive: true));
-    } catch (e) {
-      emit(state.copyWith(error: e.toString(), isLoading: false));
-    }
+    final result = await _repository.createCourse(request);
+
+    result.fold(
+      (error) {
+        emit(CourseError(message: error));
+      },
+      (course) {
+        emit(
+          CourseOperationSuccess(
+            message: 'Course created successfully',
+            course: course,
+            previousState: currentState,
+          ),
+        );
+
+        // After success, refresh the list
+        _refreshAfterOperation(currentState);
+      },
+    );
   }
 
-  // ========== PUBLIC METHODS ==========
+  // DELETE: Delete course
+  Future<void> deleteCourse(int id) async {
+    final currentState = state;
 
-  // Load operations
-  Future<void> loadAllCourses() async {
-    try {
-      emit(state.copyWith(isLoading: true, error: null));
+    emit(
+      const CourseOperationLoading(operationType: CourseOperationType.delete),
+    );
 
-      final courses = await _repository.getAllCourses();
-      _allCourses = courses;
+    final result = await _repository.deleteCourse(id);
 
-      emit(state.copyWith(courses: courses, isLoading: false));
-    } catch (e) {
-      emit(state.copyWith(error: e.toString(), isLoading: false));
-    }
+    result.fold(
+      (error) {
+        emit(CourseError(message: error));
+      },
+      (_) {
+        emit(
+          CourseOperationSuccess(
+            message: 'Course deleted successfully',
+            previousState: currentState,
+          ),
+        );
+
+        // After success, refresh the list
+        _refreshAfterOperation(currentState);
+      },
+    );
   }
 
-  Future<void> loadCourse(String id) async {
-    try {
-      emit(state.copyWith(isLoading: true, error: null));
+  // Get course by ID from current state
+  Course? getCourseByIdFromState(int courseId) {
+    final currentState = state;
 
-      final course = await _repository.getCourseById(id);
-
-      emit(state.copyWith(selectedCourse: course, isLoading: false));
-    } catch (e) {
-      emit(state.copyWith(error: e.toString(), isLoading: false));
+    if (currentState is CourseListLoaded) {
+      try {
+        return currentState.courses.firstWhere(
+          (course) => course.id == courseId,
+        );
+      } catch (e) {
+        return null;
+      }
+    } else if (currentState is CourseDetailLoaded) {
+      return currentState.course.id == courseId ? currentState.course : null;
     }
+
+    return null;
   }
 
-  Future<void> loadCoursesWithFilters({
-    String? departmentId,
-    bool? isActive,
-    bool? isOpen,
-  }) async {
+  // GET: Load course by ID
+  Future<void> loadCourseById(int id) async {
     try {
-      emit(state.copyWith(isLoading: true, error: null));
+      emit(const CourseLoading());
 
-      final courses = await _repository.getCoursesByMultipleFilters(
-        departmentId: departmentId,
-        isActive: isActive,
-        isOpen: isOpen,
-      );
+      final result = await _repository.getCourseById(id);
 
-      _allCourses = courses;
-
-      emit(
-        state.copyWith(
-          courses: courses,
-          isLoading: false,
-          departmentId: departmentId,
-          isActive: isActive,
-          isOpen: isOpen,
-        ),
-      );
-    } catch (e) {
-      emit(state.copyWith(error: e.toString(), isLoading: false));
-    }
-  }
-
-  Future<void> loadDepartmentCourses(String departmentId) async {
-    try {
-      emit(state.copyWith(isLoading: true, error: null));
-
-      final courses = await _repository.getCoursesByDepartment(departmentId);
-
-      emit(
-        state.copyWith(
-          courses: courses,
-          isLoading: false,
-          departmentId: departmentId,
-        ),
+      result.fold(
+        (error) => emit(CourseError(message: error)),
+        (course) => emit(CourseDetailLoaded(course: course)),
       );
     } catch (e) {
-      emit(state.copyWith(error: e.toString(), isLoading: false));
+      emit(const CourseError(message: 'Failed to load course details'));
     }
   }
 
-  Future<void> loadOpenCourses() async {
+  // GET: Load all courses
+  Future<void> loadCourses() async {
     try {
-      emit(state.copyWith(isLoading: true, error: null));
+      emit(const CourseLoading());
 
-      final courses = await _repository.getOpenCourses();
-      _allCourses = courses;
+      final result = await _repository.getCourses();
 
-      emit(state.copyWith(courses: courses, isLoading: false, isOpen: true));
+      result.fold((error) => emit(CourseError(message: error)), (courses) {
+        emit(CourseListLoaded(courses: courses));
+      });
     } catch (e) {
-      emit(state.copyWith(error: e.toString(), isLoading: false));
+      emit(const CourseError(message: 'Failed to load courses'));
     }
   }
 
-  // Utility methods
-  void refresh() async {
-    await loadAllCourses();
+  // GET: Load courses by department
+  Future<void> loadCoursesByDepartment(int departmentId) async {
+    try {
+      emit(const CourseLoading());
+
+      final result = await _repository.getCoursesByDepartment(departmentId);
+
+      result.fold((error) => emit(CourseError(message: error)), (courses) {
+        emit(
+          CourseListLoaded(
+            courses: courses,
+            filterDepartment: departmentId.toString(),
+          ),
+        );
+      });
+    } catch (e) {
+      emit(const CourseError(message: 'Failed to load department courses'));
+    }
   }
 
-  void reset() {
-    _allCourses.clear();
-    emit(CourseState.initial());
+  // GET: Refresh courses
+  Future<void> refreshCourses() async {
+    final currentState = state;
+
+    emit(const CourseLoading());
+
+    final result = await _repository.getCourses();
+
+    result.fold(
+      (error) {
+        emit(CourseError(message: error));
+      },
+      (courses) {
+        if (currentState is CourseListLoaded) {
+          emit(currentState.copyWith(courses: courses));
+        } else {
+          emit(CourseListLoaded(courses: courses));
+        }
+      },
+    );
   }
 
-  // Search operations
+  // GET: Search courses
   Future<void> searchCourses(String query) async {
     if (query.isEmpty) {
-      emit(state.copyWith(courses: _allCourses, searchQuery: ''));
+      loadCourses();
       return;
     }
 
-    try {
-      emit(state.copyWith(isLoading: true, searchQuery: query));
+    final currentState = state;
 
-      final courses = await _repository.searchCourses(query);
+    emit(const CourseLoading());
 
-      emit(
-        state.copyWith(courses: courses, isLoading: false, searchQuery: query),
-      );
-    } catch (e) {
-      emit(state.copyWith(error: e.toString(), isLoading: false));
-    }
+    final result = await _repository.searchCourses(query);
+
+    result.fold(
+      (error) {
+        emit(CourseError(message: error));
+      },
+      (courses) {
+        if (currentState is CourseListLoaded) {
+          emit(
+            currentState.copyWith(
+              courses: courses,
+              isSearching: true,
+              searchQuery: query,
+            ),
+          );
+        } else {
+          emit(
+            CourseListLoaded(
+              courses: courses,
+              isSearching: true,
+              searchQuery: query,
+            ),
+          );
+        }
+      },
+    );
   }
 
-  Future<void> toggleCourseOpenStatus(String id, bool isOpen) async {
-    try {
-      final index = _allCourses.indexWhere((c) => c.id == id);
-      if (index == -1) return;
+  // PATCH: Toggle course open status
+  Future<void> toggleCourseOpenStatus(int id, bool isOpen) async {
+    final currentState = state;
 
-      // Optimistic update
-      _allCourses[index] = _allCourses[index].copyWith(
-        isOpen: isOpen ? '1' : '0',
-      );
-      emit(state.copyWith(courses: _applyFilters(_allCourses)));
+    emit(
+      const CourseOperationLoading(
+        operationType: CourseOperationType.toggleOpenStatus,
+      ),
+    );
 
-      // API call
-      await _repository.toggleCourseOpenStatus(id, isOpen);
+    final result = await _repository.toggleCourseOpenStatus(id, isOpen);
 
-      emit(state.copyWith(courses: _applyFilters(_allCourses)));
-    } catch (e) {
-      // Revert on error
-      final index = _allCourses.indexWhere((c) => c.id == id);
-      if (index != -1) {
-        _allCourses[index] = _allCourses[index].copyWith(
-          isOpen: !isOpen ? '1' : '0',
+    result.fold(
+      (error) {
+        emit(CourseError(message: error));
+      },
+      (_) {
+        final status = isOpen ? 'opened' : 'closed';
+        emit(
+          CourseOperationSuccess(
+            message: 'Course $status successfully',
+            previousState: currentState,
+          ),
         );
-      }
-      emit(
-        state.copyWith(
-          error: e.toString(),
-          courses: _applyFilters(_allCourses),
-        ),
-      );
-      rethrow;
-    }
+
+        // After success, refresh the list
+        _refreshAfterOperation(currentState);
+      },
+    );
   }
 
-  Future<void> updateCourse(String id, Course course) async {
-    try {
-      emit(state.copyWith(isUpdating: true, error: null));
+  // PATCH: Toggle course active status
+  Future<void> toggleCourseStatus(int id, bool isActive) async {
+    final currentState = state;
 
-      final updatedCourse = await _repository.updateCourse(id, course);
+    emit(
+      const CourseOperationLoading(
+        operationType: CourseOperationType.toggleStatus,
+      ),
+    );
 
-      final index = _allCourses.indexWhere((c) => c.id == id);
-      if (index != -1) {
-        _allCourses[index] = updatedCourse;
-      }
+    final result = await _repository.toggleCourseStatus(id, isActive);
 
-      emit(
-        state.copyWith(
-          courses: _applyFilters(_allCourses),
-          selectedCourse: updatedCourse,
-          isUpdating: false,
-        ),
-      );
-    } catch (e) {
-      emit(state.copyWith(error: e.toString(), isUpdating: false));
-      rethrow;
-    }
-  }
-
-  // Status operations
-  Future<void> updateCourseStatus(String id, bool isActive) async {
-    try {
-      await _repository.updateCourseStatus(id, isActive);
-
-      final index = _allCourses.indexWhere((c) => c.id == id);
-      if (index != -1) {
-        _allCourses[index] = _allCourses[index].copyWith(
-          isActive: isActive ? '1' : '0',
+    result.fold(
+      (error) {
+        emit(CourseError(message: error));
+      },
+      (_) {
+        final status = isActive ? 'activated' : 'deactivated';
+        emit(
+          CourseOperationSuccess(
+            message: 'Course $status successfully',
+            previousState: currentState,
+          ),
         );
-      }
 
-      emit(state.copyWith(courses: _applyFilters(_allCourses)));
-    } catch (e) {
-      emit(state.copyWith(error: e.toString()));
-      rethrow;
-    }
+        // After success, refresh the list
+        _refreshAfterOperation(currentState);
+      },
+    );
   }
 
-  List<Course> _applyFilters(List<Course> courses) {
-    List<Course> filtered = courses;
+  // PATCH: Update course
+  Future<void> updateCourse(UpdateCourseRequest request) async {
+    final currentState = state;
 
-    // Apply department filter
-    if (state.departmentId != null) {
-      filtered = filtered.where((course) {
-        return course.departmentId == state.departmentId;
-      }).toList();
-    }
+    emit(
+      const CourseOperationLoading(operationType: CourseOperationType.update),
+    );
 
-    // Apply active status filter
-    if (state.isActive != null) {
-      filtered = filtered.where((course) {
-        final isCourseActive =
-            course.isActive == '1' || course.isActive == 'true';
-        return isCourseActive == state.isActive;
-      }).toList();
-    }
+    final result = await _repository.updateCourse(request);
 
-    // Apply open status filter
-    if (state.isOpen != null) {
-      filtered = filtered.where((course) {
-        final isCourseOpen = course.isOpen == '1' || course.isOpen == 'true';
-        return isCourseOpen == state.isOpen;
-      }).toList();
-    }
+    result.fold(
+      (error) {
+        emit(CourseError(message: error));
+      },
+      (course) {
+        emit(
+          CourseOperationSuccess(
+            message: 'Course updated successfully',
+            course: course,
+            previousState: currentState,
+          ),
+        );
 
-    // Apply search filter
-    if (state.searchQuery.isNotEmpty) {
-      filtered = filtered.where((course) {
-        final titleAr = course.titleAr.toLowerCase();
-        final titleEn = course.titleEn?.toLowerCase() ?? '';
-        final nameAr = course.nameAr.toLowerCase();
-        final nameEn = course.nameEn?.toLowerCase() ?? '';
-        final code = course.code.toLowerCase();
-        final query = state.searchQuery.toLowerCase();
-
-        return titleAr.contains(query) ||
-            titleEn.contains(query) ||
-            nameAr.contains(query) ||
-            nameEn.contains(query) ||
-            code.contains(query);
-      }).toList();
-    }
-
-    return filtered;
+        // After success, refresh the list
+        _refreshAfterOperation(currentState);
+      },
+    );
   }
 
-  // ========== PRIVATE METHODS ==========
-
-  Future<void> _loadFromCache() async {
-    try {
-      final cached = await _repository.getCachedCourses();
-      if (cached.isNotEmpty) {
-        _allCourses = cached;
-
-        emit(state.copyWith(courses: cached));
+  // Helper to refresh after operation
+  void _refreshAfterOperation(CourseState previousState) {
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (previousState is CourseListLoaded) {
+        if (previousState.hasFilter) {
+          final departmentId = int.tryParse(
+            previousState.filterDepartment ?? '',
+          );
+          if (departmentId != null) {
+            loadCoursesByDepartment(departmentId);
+          } else {
+            loadCourses();
+          }
+        } else if (previousState.hasSearchQuery) {
+          searchCourses(previousState.searchQuery ?? '');
+        } else {
+          loadCourses();
+        }
+      } else if (previousState is CourseDetailLoaded) {
+        loadCourseById(previousState.course.id);
+      } else {
+        loadCourses();
       }
-    } catch (e) {
-      // Silent fail
-    }
+    });
   }
 }

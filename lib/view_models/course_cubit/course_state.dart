@@ -2,112 +2,110 @@ import 'package:equatable/equatable.dart';
 
 import '../../models/course_model.dart';
 
-class CourseState extends Equatable {
-  final List<Course> courses;
-  final Course? selectedCourse;
-  final bool isLoading;
-  final bool isLoadingActive;
-  final bool isLoadingOpen;
-  final bool isLoadingFiltered;
-  final String? error;
-  final String searchQuery;
-  final bool isCreating;
-  final bool isUpdating;
-  final bool isDeleting;
-  final bool isTogglingStatus;
-  final String? departmentId;
-  final bool? isActive;
-  final bool? isOpen;
+final class CourseDetailLoaded extends CourseState {
+  final Course course;
 
-  const CourseState({
-    this.courses = const [],
-    this.selectedCourse,
-    this.isLoading = false,
-    this.isLoadingActive = false,
-    this.isLoadingOpen = false,
-    this.isLoadingFiltered = false,
-    this.error,
-    this.searchQuery = '',
-    this.isCreating = false,
-    this.isUpdating = false,
-    this.isDeleting = false,
-    this.isTogglingStatus = false,
-    this.departmentId,
-    this.isActive,
-    this.isOpen,
+  const CourseDetailLoaded({required this.course});
+
+  @override
+  List<Object?> get props => [course];
+}
+
+final class CourseError extends CourseState {
+  final String message;
+
+  const CourseError({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
+final class CourseInitial extends CourseState {
+  const CourseInitial();
+}
+
+final class CourseListLoaded extends CourseState {
+  final List<Course> courses;
+  final String? filterDepartment;
+  final bool isSearching;
+  final String? searchQuery;
+
+  const CourseListLoaded({
+    required this.courses,
+    this.filterDepartment,
+    this.isSearching = false,
+    this.searchQuery,
   });
 
-  factory CourseState.initial() => const CourseState();
+  List<Course> get activeCourses =>
+      courses.where((course) => course.isActive == 1).toList();
 
-  List<Course> get activeCourses => courses.where((course) {
-    return course.isActive == '1' || course.isActive == 'true';
-  }).toList();
-
-  bool get hasCourses => courses.isNotEmpty;
-  // Helper getters
-  bool get hasError => error != null;
-  bool get isAnyLoading =>
-      isLoading || isLoadingActive || isLoadingOpen || isLoadingFiltered;
-  bool get isFiltered =>
-      departmentId != null || isActive != null || isOpen != null;
-  bool get isSearching => searchQuery.isNotEmpty;
-
-  List<Course> get openCourses => courses.where((course) {
-    return course.isOpen == '1' || course.isOpen == 'true';
-  }).toList();
-
+  bool get hasFilter => filterDepartment != null;
+  bool get hasSearchQuery => searchQuery?.isNotEmpty ?? false;
+  bool get isEmpty => courses.isEmpty;
+  List<Course> get openCourses => courses.where((c) => c.isOpen == 1).toList();
   @override
   List<Object?> get props => [
     courses,
-    selectedCourse,
-    isLoading,
-    isLoadingActive,
-    isLoadingOpen,
-    isLoadingFiltered,
-    error,
+    filterDepartment,
+    isSearching,
     searchQuery,
-    isCreating,
-    isUpdating,
-    isDeleting,
-    isTogglingStatus,
-    departmentId,
-    isActive,
-    isOpen,
   ];
 
-  CourseState copyWith({
+  CourseListLoaded copyWith({
     List<Course>? courses,
-    Course? selectedCourse,
-    bool? isLoading,
-    bool? isLoadingActive,
-    bool? isLoadingOpen,
-    bool? isLoadingFiltered,
-    String? error,
+    String? filterDepartment,
+    bool? isSearching,
     String? searchQuery,
-    bool? isCreating,
-    bool? isUpdating,
-    bool? isDeleting,
-    bool? isTogglingStatus,
-    String? departmentId,
-    bool? isActive,
-    bool? isOpen,
   }) {
-    return CourseState(
+    return CourseListLoaded(
       courses: courses ?? this.courses,
-      selectedCourse: selectedCourse ?? this.selectedCourse,
-      isLoading: isLoading ?? this.isLoading,
-      isLoadingActive: isLoadingActive ?? this.isLoadingActive,
-      isLoadingOpen: isLoadingOpen ?? this.isLoadingOpen,
-      isLoadingFiltered: isLoadingFiltered ?? this.isLoadingFiltered,
-      error: error ?? this.error,
+      filterDepartment: filterDepartment ?? this.filterDepartment,
+      isSearching: isSearching ?? this.isSearching,
       searchQuery: searchQuery ?? this.searchQuery,
-      isCreating: isCreating ?? this.isCreating,
-      isUpdating: isUpdating ?? this.isUpdating,
-      isDeleting: isDeleting ?? this.isDeleting,
-      isTogglingStatus: isTogglingStatus ?? this.isTogglingStatus,
-      departmentId: departmentId ?? this.departmentId,
-      isActive: isActive ?? this.isActive,
-      isOpen: isOpen ?? this.isOpen,
     );
   }
+}
+
+final class CourseLoading extends CourseState {
+  const CourseLoading();
+}
+
+final class CourseOperationLoading extends CourseState {
+  final CourseOperationType operationType;
+
+  const CourseOperationLoading({required this.operationType});
+
+  @override
+  List<Object?> get props => [operationType];
+}
+
+final class CourseOperationSuccess extends CourseState {
+  final String message;
+  final Course? course;
+  final CourseState previousState;
+
+  const CourseOperationSuccess({
+    required this.message,
+    this.course,
+    required this.previousState,
+  });
+
+  @override
+  List<Object?> get props => [message, course, previousState];
+}
+
+enum CourseOperationType {
+  create,
+  update,
+  delete,
+  toggleStatus,
+  toggleOpenStatus,
+}
+
+sealed class CourseState extends Equatable {
+  const CourseState();
+
+  @override
+  List<Object?> get props => [];
 }
