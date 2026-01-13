@@ -6,6 +6,7 @@ class CustomAuthField extends StatelessWidget {
   final String label;
   final String hint;
   final Widget? icon;
+  final VoidCallback? onTap;
   final bool isPassword;
   final TextEditingController controller;
 
@@ -16,6 +17,7 @@ class CustomAuthField extends StatelessWidget {
     this.icon,
     required this.controller,
     this.isPassword = false,
+    this.onTap,
   });
 
   @override
@@ -35,7 +37,9 @@ class CustomAuthField extends StatelessWidget {
                 style: TextStyles.medium16Black,
                 decoration: InputDecoration(
                   label: Text(label, style: TextStyles.bold14Black),
-                  suffixIcon: icon,
+                  suffixIcon: icon == null
+                      ? null
+                      : IconButton(onPressed: onTap, icon: icon!),
                   suffixIconConstraints: const BoxConstraints(),
 
                   hintText: hint,

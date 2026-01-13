@@ -21,6 +21,7 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  bool isHidden = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,9 +98,16 @@ class _LoginViewState extends State<LoginView> {
                             CustomAuthField(
                               label: 'كلمة السر',
                               hint: '********',
-                              isPassword: true,
-                              icon: MyAppIcons.eye,
+                              isPassword: isHidden,
+                              icon: isHidden
+                                  ? MyAppIcons.eye
+                                  : MyAppIcons.closedEye,
                               controller: _passwordController,
+                              onTap: () {
+                                setState(() {
+                                  isHidden = !isHidden;
+                                });
+                              },
                             ),
 
                             // Spacer يدفع الزر للأسفل بغض النظر عن طول الشاشة
