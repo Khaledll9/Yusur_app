@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../../utils/app_color.dart';
+import '../../../utils/app_text_styles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yusur_app/routes/app_routes.dart';
-
 import '../models/onboarding_model.dart';
 import '../widgets/onboarding_action_card.dart';
-
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -25,7 +25,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           // الخلفية: صورة تتغير بنعومة باستخدام AnimatedSwitcher
           Positioned.fill(
             child: ColoredBox(
-              color: const Color.fromARGB(255, 51, 96, 243),
+              color:  AppColors.primaryColor,
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 500),
                 child: Image.asset(
@@ -44,9 +44,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
               Expanded(
                 child: PageView.builder(
-                  controller: _controller,
+                  controller: _controller, 
                   onPageChanged: (index) =>
-                      setState(() => _currentIndex = index),
+                  setState(() => _currentIndex = index),
                   itemCount: _items.length,
                   itemBuilder: (context, index) => _buildPageBody(index),
                 ),
@@ -85,12 +85,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: Text(
             _items[index].text,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              height: 1.5,
-            ),
+            style: TextStyles.semiBold18Expanded,
           ),
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart' show GoRouter, GoRoute;
 import 'package:yusur_app/models/course_model.dart';
-import 'package:yusur_app/onboarding/screens/onboarding_screen.dart';
+import 'package:yusur_app/views/onboarding/screens/onboarding_screen.dart';
 import 'package:yusur_app/views/Authentication/screens/login_view.dart';
 import 'package:yusur_app/views/Authentication/screens/register_view.dart';
 import 'package:yusur_app/views/add_and_edit/edit_course_view.dart';

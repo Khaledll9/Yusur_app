@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:yusur_app/utils/app_color.dart';
+
+import '../../../utils/app_text_styles.dart';
 class OnboardingActionCard extends StatelessWidget {
   final int currentIndex;
   final int totalCount;
@@ -17,7 +20,7 @@ class OnboardingActionCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(30, 24, 30, 40),
       decoration: const BoxDecoration(
-        color: Color(0xFFF5F5F5),
+        color:AppColors.backgroundColor,
      borderRadius: BorderRadius.only(
     topLeft: Radius.circular(50),
     topRight: Radius.circular(50),
@@ -39,14 +42,14 @@ class OnboardingActionCard extends StatelessWidget {
             height: 55,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 51, 96, 243),
+                backgroundColor: AppColors.primaryColor,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                 elevation: 0,
               ),
               onPressed: onNext,
               child: Text(
                 currentIndex == totalCount - 1 ? "دخول" : "التالي",
-                style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyles.semiBold24Expanded,
               ),
             ),
           ),
@@ -62,8 +65,9 @@ class OnboardingActionCard extends StatelessWidget {
       height: 8,
       width: isActive ? 20 : 8,
       decoration: BoxDecoration(
-        color: isActive ? const Color.fromARGB(255, 51, 96, 243) : const Color(0xFFD1D1D1),
-        borderRadius: BorderRadius.circular(4),
+        color: isActive ? AppColors.primaryColor:
+      AppColors.lightPrimaryColor
+        ,borderRadius: BorderRadius.circular(4),
       ),
     );
   }

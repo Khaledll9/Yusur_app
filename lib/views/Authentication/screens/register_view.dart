@@ -22,7 +22,8 @@ class _RegisterViewState extends State<RegisterView> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-
+  bool isHidden = true;
+  bool isConfirmHidden = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,16 +105,30 @@ class _RegisterViewState extends State<RegisterView> {
                             CustomAuthField(
                               label: 'كلمة السر',
                               hint: '12345678',
-                              isPassword: false,
-                              icon: MyAppIcons.closedEye,
+                              isPassword: isHidden,
+                              icon: isHidden
+                                  ? MyAppIcons.eye
+                                  : MyAppIcons.closedEye,
                               controller: _passwordController,
+                              onTap: () {
+                                setState(() {
+                                  isHidden = !isHidden;
+                                });
+                              },
                             ),
                             CustomAuthField(
                               label: 'تأكيد كلمة السر',
                               hint: '********',
-                              isPassword: true,
-                              icon: MyAppIcons.eye,
+                              isPassword: isConfirmHidden,
+                              icon: isConfirmHidden
+                                  ? MyAppIcons.eye
+                                  : MyAppIcons.closedEye,
                               controller: _confirmPasswordController,
+                              onTap: () {
+                                setState(() {
+                                  isConfirmHidden = !isConfirmHidden;
+                                });
+                              },
                             ),
 
                             // Spacer يضمن دفع الزر للحافة السفلية تماماً كالفيجما
