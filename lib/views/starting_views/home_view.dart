@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: const MainSearchAppBar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+        padding: const EdgeInsets.all(12),
         child: [
           const InstituteItemListView(),
           const FavoriteView(),

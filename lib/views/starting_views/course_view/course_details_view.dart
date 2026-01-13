@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:yusur_app/utils/app_color.dart';
+import 'package:yusur_app/utils/app_text_styles.dart';
 
 import '../../../models/course_model.dart';
 import '../../../widget/back_navigation_app.dart';
 
 class CourseDetailsView extends StatelessWidget {
-  const CourseDetailsView({super.key, required this.course});
   final Course course;
+  const CourseDetailsView({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +17,33 @@ class CourseDetailsView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            Image.asset(course.photoPath!),
+            ClipRRect(
+              borderRadius: BorderRadiusGeometry.circular(15),
+
+              child: Image.asset(course.photoPath!),
+            ),
             const SizedBox(height: 20),
-            Text(course.description!),
+
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.only(right: 10),
+                children: [
+                  const Text(
+                    'عدد الطلاب المهتمين بالدورة .... طالب ',
+                    style: TextStyles.bold16Black,
+                  ),
+                  const SizedBox(height: 20),
+                  const Text('التفاصيل : ', style: TextStyles.bold16Black),
+
+                  Text(
+                    course.description!,
+                    style: TextStyles.medium16Gray.copyWith(
+                      color: AppColors.black80,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
