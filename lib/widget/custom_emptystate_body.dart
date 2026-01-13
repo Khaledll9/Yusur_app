@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:yusur_app/utils/app_text_styles.dart';
 
-class EmptyStateBody extends StatelessWidget {
+class CustomEmptystateBody extends StatelessWidget {
   final String title;
   final String subTitle;
-  final Widget iconWidget;
+  final String image;
   final double iconSize;
 
-  const EmptyStateBody({
+  const CustomEmptystateBody({
     super.key,
     required this.title,
     required this.subTitle,
-    required this.iconWidget,
+    required this.image,
     this.iconSize = 120.0,
   });
 
@@ -28,7 +28,10 @@ class EmptyStateBody extends StatelessWidget {
               SizedBox(
                 width: iconSize,
                 height: iconSize,
-                child: FittedBox(fit: BoxFit.contain, child: iconWidget),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Image.asset(image),
+                ),
               ),
               const SizedBox(height: 35),
               Text(

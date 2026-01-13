@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../utils/app_color.dart';
-import '../../utils/app_images.dart';
-import '../../utils/app_text_styles.dart';
-import '../../utils/app_icons.dart';
-import '../widgets/custom_auth_text_field.dart';
+import 'package:go_router/go_router.dart';
+import 'package:yusur_app/routes/app_routes.dart';
+
+import '../../../../utils/app_color.dart';
+import '../../../utils/app_icons.dart';
+import '../../../utils/app_images.dart';
+import '../../../utils/app_text_styles.dart';
 import '../widgets/custom_auth_button.dart';
-import 'register_view.dart';
+import '../widgets/custom_auth_tab.dart';
+import '../widgets/custom_auth_text_field.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -17,13 +20,6 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,20 +55,22 @@ class _LoginViewState extends State<LoginView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildTab('إنشاء حساب', false, () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const RegisterView(),
-                              ),
-                            );
-                          }),
-                          _buildTab('تسجيل دخول', true, () {}),
+                          CustomAuthTab(
+                            title: 'إنشاء حساب',
+                            isActive: false,
+                            onTap: () {
+                              context.goNamed(AppRoutes.registerView);
+                            },
+                          ),
+                          CustomAuthTab(
+                            title: 'تسجيل دخول',
+                            isActive: true,
+                            onTap: () {},
+                          ),
                         ],
                       ),
                     ),
 
-                    // الحاوية الرمادية - أصبحت Expanded لتملأ باقي الشاشة تماماً كالفيجما
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(top: 13),
@@ -109,7 +107,9 @@ class _LoginViewState extends State<LoginView> {
                             const SizedBox(height: 40),
                             CustomAuthButton(
                               text: 'تسجيل دخول',
-                              onPressed: () {},
+                              onPressed: () {
+                                context.goNamed(AppRoutes.homeView);
+                              },
                             ),
                           ],
                         ),
@@ -125,24 +125,10 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget _buildTab(String title, bool isActive, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Text(title, style: TextStyles.bold14Black),
-          const SizedBox(height: 13),
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            height: 3,
-            width: isActive ? 100 : 0,
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        ],
-      ),
-    );
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

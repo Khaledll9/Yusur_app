@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'courses_component.dart';
-import './widgets/custom_container.dart';
+import 'package:go_router/go_router.dart';
 
-class ChooseCoursestypeBody extends StatelessWidget {
+import '../../routes/app_routes.dart';
+import './widgets/custom_container.dart';
+import 'listtile_component.dart';
+
+class ChooseCourseTypeBody extends StatelessWidget {
   final bool isSelected;
-  const ChooseCoursestypeBody({super.key, this.isSelected = false});
+  const ChooseCourseTypeBody({super.key, this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +18,21 @@ class ChooseCoursestypeBody extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CoursesBox(
+              CustomContainer(
                 // just to try an image
-                myimage: Image.asset("assets/images/logo_foreground.png"),
+                image: Image.asset("assets/images/logo_foreground.png"),
                 title: "الدورات والدبلومات التي يقدمهاالمعهد",
+                onTap: () => context.pushNamed(AppRoutes.courseView),
               ),
-              const CoursesBox(
-                //myimage: Image.asset("assets/images/logo_foreground.png"),
+              CustomContainer(
+                //image: Image.asset("assets/images/logo_foreground.png"),
                 title: "الدورات والدبلومات الحالية",
+                onTap: () => context.pushNamed(AppRoutes.courseView),
               ),
             ],
           ),
           const SizedBox(height: 62.0),
-          if (isSelected) const ListTileComponent(),
+          if (!isSelected) const ListTileComponent(),
         ],
       ),
     );

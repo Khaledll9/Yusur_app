@@ -9,15 +9,18 @@ import 'package:yusur_app/utils/app_images.dart';
 import 'package:yusur_app/utils/app_text_styles.dart';
 
 class InstituteItem extends StatelessWidget {
-  const InstituteItem({super.key, required this.institute});
   final Institute institute;
+  const InstituteItem({super.key, required this.institute});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: AppColors.primary100,
       borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-      onTap: () => context.goNamed(AppRoutes.courseView, extra: institute),
+      // onTap: () => context.goNamed(AppRoutes.courseView, extra: institute),
+      onTap: () =>
+          context.goNamed(AppRoutes.chooseCourseTypeView, extra: false),
+
       child: Card(
         color: AppColors.white,
         elevation: 2,

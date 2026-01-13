@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:yusur_app/utils/app_color.dart';
 
-class AddCourseListTile extends StatelessWidget {
-  final Widget myicon;
-  final String mytitle;
-  const AddCourseListTile({
+class CustomListTile extends StatelessWidget {
+  final Widget icon;
+  final String title;
+  final VoidCallback onTap;
+  const CustomListTile({
     super.key,
-    required this.myicon,
-    required this.mytitle,
+    required this.icon,
+    required this.title,
+    required this.onTap,
   });
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: myicon,
-      title: Text(mytitle),
-      tileColor: AppColors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 0.0),
+      shadowColor: AppColors.black80,
+      child: ListTile(
+        onTap: onTap,
+        contentPadding: const EdgeInsets.all(16.0),
+        leading: icon,
+        title: Text(title),
+        tileColor: AppColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+      ),
     );
   }
 }

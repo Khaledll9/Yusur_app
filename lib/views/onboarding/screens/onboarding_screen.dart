@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../utils/app_color.dart';
 import '../../../utils/app_text_styles.dart';
+import 'package:go_router/go_router.dart';
+import 'package:yusur_app/routes/app_routes.dart';
 import '../models/onboarding_model.dart';
 import '../widgets/onboarding_action_card.dart';
 class OnboardingScreen extends StatefulWidget {
@@ -21,28 +24,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           // الخلفية: صورة تتغير بنعومة باستخدام AnimatedSwitcher
           Positioned.fill(
-             child: ColoredBox(
-            color: const Color.fromARGB(255, 51, 96, 243),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              child: Image.asset(
-                _items[_currentIndex].bgImage,
-                key: ValueKey(_currentIndex),
-                fit: BoxFit.cover,
+            child: ColoredBox(
+              color:  AppColors.primaryColor,
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500),
+                child: Image.asset(
+                  _items[_currentIndex].bgImage,
+                  key: ValueKey(_currentIndex),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-          ),
           Column(
             children: [
-              const SizedBox(height: 10,width: 10),
+              const SizedBox(height: 10, width: 10),
               // زر التخطي (يختفي في الصفحة الأخيرة)
               _buildSkipButton(),
-              
+
               Expanded(
                 child: PageView.builder(
-                  controller: _controller,
-                  onPageChanged: (index) => setState(() => _currentIndex = index),
+                  controller: _controller, 
+                  onPageChanged: (index) =>
+                  setState(() => _currentIndex = index),
                   itemCount: _items.length,
                   itemBuilder: (context, index) => _buildPageBody(index),
                 ),
@@ -59,29 +63,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       curve: Curves.easeInOut,
                     );
                   } else {
-                    // انتقل لصفحة تسجيل الدخول (Login)
+                    context.goNamed(AppRoutes.loginView);
                   }
                 },
               ),
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSkipButton() {
-    return Align(
-      alignment: Alignment.topRight,
-      child: Visibility(
-        visible: _currentIndex != _items.length - 1,
-        child: TextButton(
-          onPressed: () => _controller.jumpToPage(_items.length - 1),
-          child: const Padding(
-            padding: EdgeInsets.all(16),
-            child: Text("تخطي", style: TextStyle(color: Colors.white, fontSize: 16)),
-          ),
-        ),
       ),
     );
   }
@@ -101,6 +89,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildSkipButton() {
+    return Align(
+      alignment: Alignment.topRight,
+      child: Visibility(
+        visible: _currentIndex != _items.length - 1,
+        child: TextButton(
+          onPressed: () => context.goNamed(AppRoutes.loginView),
+          child: const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              "تخطي",
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

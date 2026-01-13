@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../utils/app_color.dart';
-import '../../utils/app_images.dart';
-import '../../utils/app_text_styles.dart';
-import '../../utils/app_icons.dart';
-import '../widgets/custom_auth_text_field.dart';
+import 'package:go_router/go_router.dart';
+import 'package:yusur_app/routes/app_routes.dart';
+
+import '../../../utils/app_color.dart';
+import '../../../utils/app_icons.dart';
+import '../../../utils/app_images.dart';
+import '../../../utils/app_text_styles.dart';
 import '../widgets/custom_auth_button.dart';
-import 'login_view.dart';
+import '../widgets/custom_auth_tab.dart';
+import '../widgets/custom_auth_text_field.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -19,15 +22,6 @@ class _RegisterViewState extends State<RegisterView> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _userNameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,15 +56,18 @@ class _RegisterViewState extends State<RegisterView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildTab('إنشاء حساب', true, () {}),
-                          _buildTab('تسجيل دخول', false, () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginView(),
-                              ),
-                            );
-                          }),
+                          CustomAuthTab(
+                            title: 'إنشاء حساب',
+                            isActive: true,
+                            onTap: () {},
+                          ),
+                          CustomAuthTab(
+                            title: 'تسجيل دخول',
+                            isActive: false,
+                            onTap: () {
+                              context.goNamed(AppRoutes.loginView);
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -124,7 +121,9 @@ class _RegisterViewState extends State<RegisterView> {
                             const SizedBox(height: 40),
                             CustomAuthButton(
                               text: 'تسجيل دخول',
-                              onPressed: () {},
+                              onPressed: () {
+                                context.goNamed(AppRoutes.homeView);
+                              },
                             ),
                           ],
                         ),
@@ -140,24 +139,12 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Widget _buildTab(String title, bool isActive, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Text(title, style: TextStyles.bold14Black),
-          const SizedBox(height: 10),
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            height: 3,
-            width: isActive ? 100 : 0,
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        ],
-      ),
-    );
+  @override
+  void dispose() {
+    _userNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
   }
 }
