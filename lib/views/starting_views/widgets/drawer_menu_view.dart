@@ -7,50 +7,6 @@ import 'package:yusur_app/utils/app_icons.dart';
 import 'package:yusur_app/utils/app_text_styles.dart';
 import 'package:yusur_app/widget/custom_logout_button.dart';
 
-class DrawerMenuView extends StatelessWidget {
-  const DrawerMenuView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: AppColors.primaryColor,
-        padding: const EdgeInsets.symmetric(vertical: 40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            const SizedBox(height: 50),
-            DrawerItem(
-              title: "الملف الشخصي",
-              icon: MyAppIcons.userCircle,
-              onTap: () {
-                context.goNamed(AppRoutes.profileView);
-              },
-            ),
-            const Divider(color: Colors.white24, thickness: 1, endIndent: 20),
-
-            DrawerItem(
-              title: "الحجوزات",
-              icon: MyAppIcons.shoppingCartCheck,
-              onTap: () {
-                context.pushNamed(AppRoutes.bookingView);
-              },
-            ),
-            const Divider(color: Colors.white24, thickness: 1, endIndent: 20),
-
-            const Spacer(),
-            CustomLogoutButton(
-              onTap: () {
-                context.goNamed(AppRoutes.loginView);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class DrawerItem extends StatelessWidget {
   final String title;
   final Widget icon;
@@ -72,6 +28,50 @@ class DrawerItem extends StatelessWidget {
         child: ListTile(
           leading: icon,
           title: Text(title, style: TextStyles.regular16White),
+        ),
+      ),
+    );
+  }
+}
+
+class DrawerMenuView extends StatelessWidget {
+  const DrawerMenuView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: AppColors.primaryColor,
+        padding: const EdgeInsets.symmetric(vertical: 40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const SizedBox(height: 50),
+            DrawerItem(
+              title: "الملف الشخصي",
+              icon: MyAppIcons.userCircle,
+              onTap: () {
+                context.pushNamed(AppRoutes.profileView);
+              },
+            ),
+            const Divider(color: Colors.white24, thickness: 1, endIndent: 20),
+
+            DrawerItem(
+              title: "الحجوزات",
+              icon: MyAppIcons.shoppingCartCheck,
+              onTap: () {
+                context.pushNamed(AppRoutes.bookingView);
+              },
+            ),
+            const Divider(color: Colors.white24, thickness: 1, endIndent: 20),
+
+            const Spacer(),
+            CustomLogoutButton(
+              onTap: () {
+                context.goNamed(AppRoutes.loginView);
+              },
+            ),
+          ],
         ),
       ),
     );

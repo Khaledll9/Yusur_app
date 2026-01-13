@@ -46,6 +46,15 @@ class _HomeViewState extends State<HomeView> {
           });
         },
       ),
+
+      //  BlocBuilder<InstituteCubit, InstituteState>(
+      //   builder: (context, state) {
+      //     if (state is InstituteLoading) {
+      //       return const Center(child: CircularProgressIndicator());
+      //     } else if (state is InstituteError) {
+      //       return Center(child: Text(state.message));
+      //     } else if (state is InstituteListLoaded) {
+      //       log('Building HomeView with index');
     );
   }
 }

@@ -15,7 +15,7 @@ class CubitProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<CourseTestCubit>(
-          create: (context) => locator<CourseTestCubit>(),
+          create: (_) => locator<CourseTestCubit>(),
         ),
       ],
       child: child,
