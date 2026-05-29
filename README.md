@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/app_icon.png" alt="Yusur App Logo" width="120" height="120"/>
+  <img src="assets/images/app_icon_white.png" alt="Yusur App Logo" width="120" height="120"/>
 </p>
 
 <h1 align="center">Yusur App</h1>
